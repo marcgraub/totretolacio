@@ -1,0 +1,132 @@
+version: "3.9"
+
+services:
+  caddy:
+    image: marcgraub/totretolacio-caddy
+    build:
+      context: ./caddy
+      dockerfile: Dockerfile
+    restart: always
+    cap_add:
+      - NET_ADMIN
+    ports:
+      - "80:80"
+      - "443:443"
+      - "443:443/udp"
+    volumes:
+      - ./php/site:/srv
+      - ./caddy/data:/data
+      - ./caddy/config:/config
+    secrets:
+        - caddy_cloudflare_api_token
+        - source: Caddyfile
+          target: /etc/caddy/Caddyfile
+          uid: '1000'
+          gid: '1001'
+          mode: 0700
+    entrypoint: [ '/bin/sh', '-c', 'export CADDY_CLOUDFLARE_API_TOKEN=$$(cat /var/run/secrets/caddy_cloudflare_api_token) ; caddy run --config /etc/caddy/Caddyfile --adapter caddyfile' ]
+    depends_on:
+      - php
+
+  db:
+    image: mariadb:11.2.2
+    restart: always
+    volumes:
+      - ./mariadb/data:/var/lib/mysql
+      - ./mariadb/initdb:/docker-entrypoint-initdb.d
+    ports:
+      - "3306:3306"
+    environment:
+      MARIADB_ROOT_PASSWORD_FILE: /run/secrets/mariadb_root_password
+      MARIADB_DATABASE_FILE: /run/secrets/wordpress_db_name
+      MARIADB_USER_FILE: /run/secrets/wordpress_db_user
+      MARIADB_PASSWORD_FILE: /run/secrets/wordpress_db_password
+    secrets:
+      - mariadb_root_password
+      - wordpress_db_name
+      - wordpress_db_user
+      - wordpress_db_password
+
+  php:
+      image: marcgraub/totretolacio-php
+      build:
+        context: ./php
+        dockerfile: Dockerfile
+      restart: always
+      ports:
+        - "9000:9000"
+      volumes:
+          - ./php/site/totretolacio:/var/www/html
+      environment:
+        WORDPRESS_DB_NAME_FILE: /run/secrets/wordpress_db_name
+        WORDPRESS_DB_USER_FILE: /run/secrets/wordpress_db_user
+        WORDPRESS_DB_PASSWORD: /run/secrets/wordpress_db_password
+        WORDPRESS_HOME: /run/secrets/wordpress_home
+        WORDPRESS_SITE_URL: /run/secrets/wordpress_site_url
+        WORDPRESS_AUTH_KEY: /run/secrets/wordpress_auth_key
+        WORDPRESS_SECURE_AUTH_KEY: /run/secrets/wordpress_secure_auth_key
+        WORDPRESS_LOGGED_IN_KEY: /run/secrets/wordpress_logged_in_key
+        WORDPRESS_NONCE_KEY: /run/secrets/wordpress_nonce_key
+        WORDPRESS_AUTH_SALT: /run/secrets/wordpress_auth_salt
+        WORDPRESS_SECURE_AUTH_SALT: /run/secrets/wordpress_secure_auth_salt
+        WORDPRESS_LOGGED_IN_SALT: /run/secrets/wordpress_logged_in_salt
+        WORDPRESS_NONCE_SALT: /run/secrets/wordpress_nonce_salt
+      secrets:
+        - wordpress_db_name
+        - wordpress_db_user
+        - wordpress_db_password
+        - wordpress_home
+        - wordpress_site_url
+        - wordpress_auth_key
+        - wordpress_secure_auth_key
+        - wordpress_logged_in_key
+        - wordpress_nonce_key
+        - wordpress_auth_salt
+        - wordpress_secure_auth_salt
+        - wordpress_logged_in_salt
+        - wordpress_nonce_salt
+
+  adminer:
+    image: adminer:latest
+    restart: always
+    ports:
+      - 8080:8080
+
+volumes:
+  data:
+    external: true
+  config:
+
+secrets:
+  wordpress_db_name:
+    external: true
+  wordpress_db_user:
+    external: true
+  wordpress_db_password:
+    external: true
+  wordpress_home:
+    external: true
+  wordpress_site_url:
+    external: true
+  wordpress_auth_key:
+    external: true
+  wordpress_secure_auth_key:
+    external: true
+  wordpress_logged_in_key:
+    external: true
+  wordpress_nonce_key:
+    external: true
+  wordpress_auth_salt:
+    external: true
+  wordpress_secure_auth_salt:
+    external: true
+  wordpress_logged_in_salt:
+    external: true
+  wordpress_nonce_salt:
+    external: true
+  caddy_cloudflare_api_token:
+    external: true
+  mariadb_root_password:
+    external: true
+  Caddyfile:
+      file: ./caddy/Caddyfile.dev
