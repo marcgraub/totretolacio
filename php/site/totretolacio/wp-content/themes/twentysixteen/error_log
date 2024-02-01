@@ -1,0 +1,25 @@
+[07-May-2019 06:03:40 Europe/Madrid] PHP Fatal error:  Uncaught Error: Call to undefined function get_header() in /home/totretol/public_html/wp-content/themes/twentysixteen/404.php:10
+Stack trace:
+#0 {main}
+  thrown in /home/totretol/public_html/wp-content/themes/twentysixteen/404.php on line 10
+[08-May-2019 02:23:07 Europe/Madrid] PHP Fatal error:  Uncaught Error: Call to undefined function get_header() in /home/totretol/public_html/wp-content/themes/twentysixteen/404.php:10
+Stack trace:
+#0 {main}
+  thrown in /home/totretol/public_html/wp-content/themes/twentysixteen/404.php on line 10
+[28-May-2019 12:23:43 Europe/Madrid] PHP Fatal error:  Uncaught Error: Call to undefined function get_header() in /home/totretol/public_html/wp-content/themes/twentysixteen/404.php:10
+Stack trace:
+#0 {main}
+  thrown in /home/totretol/public_html/wp-content/themes/twentysixteen/404.php on line 10
+[06-Jul-2019 14:41:53 Europe/Madrid] PHP Fatal error:  Uncaught Error: Call to undefined function get_header() in /home/totretol/public_html/wp-content/themes/twentysixteen/404.php:10
+Stack trace:
+#0 {main}
+  thrown in /home/totretol/public_html/wp-content/themes/twentysixteen/404.php on line 10
+[15-Jul-2019 07:08:54 Europe/Madrid] PHP Fatal error:  Uncaught Error: Call to undefined function get_header() in /home/totretol/public_html/wp-content/the in /home/totretol/public_html/wp-content/themes/twentysixteen/404.php on line 10
+[16-Jul-2019 04:53:54 Europe/Madrid] PHP Fatal error:  Uncaught Error: Call to undefined function get_header() in /home/totretol/public_html/wp-content/the in /home/totretol/public_html/wp-content/themes/twentysixteen/404.php on line 10
+[20-Oct-2019 13:19:25 Europe/Madrid] PHP Fatal error:  Uncaught Error: Call to undefined function get_header() in /home/totretol/public_html/wp-content/the in /home/totretol/public_html/wp-content/themes/twentysixteen/404.php on line 10
+[11-Dec-2019 00:34:49 Europe/Madrid] PHP Fatal error:  Uncaught Error: Call to undefined function get_template_directory() in /home/totretol/public_html/wp in /home/totretol/public_html/wp-content/themes/twentysixteen/functions.php on line 32
+[03-Feb-2021 17:37:56 Europe/Madrid] PHP Fatal error:  Uncaught Error: Call to undefined function get_header() in /home/totretol/public_html/wp-content/the in /home/totretol/public_html/wp-content/themes/twentysixteen/404.php on line 10
+[20-May-2021 23:52:32 Europe/Madrid] PHP Fatal error:  Uncaught Error: Call to undefined function get_header() in /home/totretol/public_html/wp-content/the in /home/totretol/public_html/wp-content/themes/twentysixteen/404.php on line 10
+[25-Jun-2021 16:23:33 Europe/Madrid] PHP Fatal error:  Uncaught Error: Call to undefined function get_header() in /home/totretol/public_html/wp-content/the in /home/totretol/public_html/wp-content/themes/twentysixteen/404.php on line 10
+[17-Sep-2021 23:59:55 Europe/Madrid] PHP Fatal error:  Uncaught Error: Call to undefined function get_header() in /home/totretol/public_html/wp-content/the in /home/totretol/public_html/wp-content/themes/twentysixteen/404.php on line 10
+[17-Sep-2021 23:59:55 Europe/Madrid] PHP Fatal error:  Uncaught Error: Call to undefined function get_header() in /home/totretol/public_html/wp-content/the in /home/totretol/public_html/wp-content/themes/twentysixteen/404.php on line 10

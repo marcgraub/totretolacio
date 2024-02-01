@@ -1,0 +1,4 @@
+[28-Jul-2021 22:34:16 Europe/Madrid] PHP Fatal error:  Class 'Walker' not found in /home/totretol/public_html/wp-includes/class-walker-nav-menu.php on line 17
+[30-Jul-2021 03:27:02 Europe/Madrid] PHP Fatal error:  Uncaught Error: Call to undefined function _deprecated_file() in /home/totretol/public_html/wp-inclu in /home/totretol/public_html/wp-includes/locale.php on line 10
+[29-Oct-2021 04:40:40 Europe/Madrid] PHP Fatal error:  Uncaught Error: Call to undefined function _deprecated_file() in /home/totretol/public_html/wp-inclu in /home/totretol/public_html/wp-includes/locale.php on line 10
+[29-Oct-2021 06:59:24 Europe/Madrid] PHP Fatal error:  Class 'Walker' not found in /home/totretol/public_html/wp-includes/class-walker-nav-menu.php on line 17

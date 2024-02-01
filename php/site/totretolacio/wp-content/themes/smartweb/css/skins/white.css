@@ -1,0 +1,31 @@
+.mega-menu ul, .mega-menu ul li {list-style: none;}
+.mega-menu ul {position: relative; padding: 0; margin: 0;}
+.mega-menu ul li ul {display: none;}
+.mega-menu .sub {display: none;}
+.mega-menu .sub ul {display: block;}
+
+
+.white ul.mega-menu, .white ul.mega-menu, .white ul.mega-menu li {margin: 0; padding: 0; border: none;  list-style: outside none none;}
+.white ul.mega-menu li {float: left; margin: 0; padding: 0;}
+.white ul.mega-menu li a {float: left; display: block;padding: 12px 38px 12px 25px; text-decoration: none;}
+.white ul.mega-menu li a.dc-mega {position: relative;}
+.white ul.mega-menu li a .dc-mega-icon {display: block; position: absolute; width: 8px; height: 6px;  top: 18px; right: 15px;}
+.white ul.mega-menu li.mega-hover a, .white ul.mega-menu li a:hover { text-shadow: none;}
+.white ul.mega-menu li.mega-hover a .dc-mega-icon {background-position: 0 100%;}
+.white ul.mega-menu li .sub-container {position: absolute; padding-left: 20px; margin-left: -3px;}
+.white ul.mega-menu li .sub {padding: 20px 20px 20px 10px;}
+.white ul.mega-menu li .sub-container.mega .sub {padding: 20px 20px 10px 0; background:#221E20; }
+
+.white ul.mega-menu li .sub .row {width: 100%; overflow: hidden; clear: both;}
+.white ul.mega-menu li .sub li {list-style: none; float: none; width: 170px; font-size: 1em; font-weight: normal;}
+.white ul.mega-menu li .sub li.mega-hdr {margin: 0 10px 10px 0; float: left;}
+.white ul.mega-menu li .sub li.mega-hdr.last {margin-right: 0;}
+.white ul.mega-menu li .sub a {background: none; border: none; text-shadow: none; color: #111; padding: 7px 10px; display: block; float: none; text-decoration: none; font-size: 0.9em;}
+.white ul.mega-menu li .sub li.mega-hdr a.mega-hdr-a {padding: 5px 5px 5px 15px; margin-bottom: 5px; text-transform: uppercase; font-weight: bold; color: #000; text-shadow: 1px 1px 1px #fff;}
+.white ul.mega-menu li .sub li.mega-hdr a.mega-hdr-a:hover {color: #a32403; text-shadow: none;}
+
+.white ul.mega-menu .sub li.mega-hdr li a {padding: 4px 5px 4px 20px; color:#fff;}
+
+.white ul.mega-menu .sub ul li {padding-right: 0;}
+.white ul.mega-menu li .sub-container.non-mega .sub {padding: 20px 20px 20px 0;}
+.white ul.mega-menu li .sub-container.non-mega li {padding: 0; width: 190px; margin: 0;}

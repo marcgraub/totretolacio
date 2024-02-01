@@ -1,0 +1,10 @@
+[05-Jan-2019 12:54:59 Europe/Madrid] PHP Fatal error:  Uncaught Error: Call to undefined function get_header() in /home/totretol/public_html/wp-content/themes/twentyfourteen/404.php:10
+Stack trace:
+#0 {main}
+  thrown in /home/totretol/public_html/wp-content/themes/twentyfourteen/404.php on line 10
+[11-Dec-2019 00:34:55 Europe/Madrid] PHP Fatal error:  Uncaught Error: Call to undefined function get_template_directory() in /home/totretol/public_html/wp in /home/totretol/public_html/wp-content/themes/twentyfourteen/functions.php on line 43
+[02-Mar-2021 19:05:55 Europe/Madrid] PHP Fatal error:  Uncaught Error: Call to undefined function get_header() in /home/totretol/public_html/wp-content/the in /home/totretol/public_html/wp-content/themes/twentyfourteen/404.php on line 10
+[11-May-2021 22:27:30 Europe/Madrid] PHP Fatal error:  Uncaught Error: Call to undefined function get_header() in /home/totretol/public_html/wp-content/the in /home/totretol/public_html/wp-content/themes/twentyfourteen/index.php on line 17
+[06-Jun-2021 05:22:16 Europe/Madrid] PHP Fatal error:  Uncaught Error: Call to undefined function get_header() in /home/totretol/public_html/wp-content/the in /home/totretol/public_html/wp-content/themes/twentyfourteen/404.php on line 10
+[18-Sep-2022 23:07:41 Europe/Madrid] PHP Fatal error:  Uncaught Error: Call to undefined function get_header() in /home/totretol/public_html/wp-content/the in /home/totretol/public_html/wp-content/themes/twentyfourteen/404.php on line 10
+[24-Apr-2023 12:30:59 Europe/Madrid] PHP Fatal error:  Uncaught Error: Call to undefined function get_header() in /home/totretol/public_html/wp-content/the in /home/totretol/public_html/wp-content/themes/twentyfourteen/404.php on line 10

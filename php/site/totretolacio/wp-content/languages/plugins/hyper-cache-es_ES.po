@@ -1,0 +1,480 @@
+# Translation of Development (trunk) in Spanish (Spain)
+# This file is distributed under the same license as the Development (trunk) package.
+msgid ""
+msgstr ""
+"PO-Revision-Date: 2016-04-25 08:42:23+0000\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: GlotPress/2.1.0-alpha\n"
+"Project-Id-Version: Development (trunk)\n"
+
+#: options.php:358
+msgid "If your server has mod_pagespeed, leave the compression disabled otherwise the module cannot optimize the page."
+msgstr "Si tu servidor tiene activo mod_pagespeed, deja la compresión deshabilitada o el módulo no podrá optimizar la página. "
+
+#: options.php:287
+msgid "Compute the cache size"
+msgstr "Calcular el tamaño de la caché"
+
+#: options.php:288
+msgid "Import old options"
+msgstr "Importar los ajustes antiguos"
+
+#: options.php:289
+msgid "Sure? Your setting will be overwritten."
+msgstr "¿Estás seguro? Tus ajustes se sobreescribirán."
+
+#: options.php:294
+msgid "General"
+msgstr "General"
+
+#: options.php:295
+msgid "Bypasses"
+msgstr "Excepciones"
+
+#: options.php:296
+msgid "Mobile"
+msgstr "Móvil"
+
+#: options.php:297
+msgid "CDN"
+msgstr "CDN"
+
+#: options.php:301
+msgid "It works only with images, css, scripts."
+msgstr "Funciona con imágenes, CSS, scripts."
+
+#: options.php:306 options.php:433 options.php:446 options.php:470
+#: options.php:481 options.php:492 options.php:548 options.php:561
+#: options.php:575 options.php:586 options.php:598
+msgid "Enable"
+msgstr "Habilitar"
+
+#: options.php:314
+msgid "Write here the CDN URL."
+msgstr "Escribe aquí la URL del CDN."
+
+#: options.php:315
+msgid "For example a MaxCDN URL is something like"
+msgstr "Por ejemplo, una URL de MaxCDN es algo como"
+
+#: options.php:317
+msgid "You should usually create a pull zone in your CDN panel and they will give your an URL."
+msgstr "Normalmente al crear una pull zone en el panel de tu CDN te darán una URL."
+
+#: options.php:345
+msgid "Cached pages will be valid for"
+msgstr "La páginas cacheadas serán válidas durante"
+
+#: options.php:347
+msgid "hours"
+msgstr "horas"
+
+#: options.php:348
+msgid "0 means forever."
+msgstr "0 quiere decir para siempre."
+
+#: options.php:352
+msgid "Enable compression"
+msgstr "Habilitar compresión"
+
+#: options.php:357
+msgid "If you note odd characters when enabled, disable it since your server is already compressing the pages."
+msgstr "Si ves caracteres extraños cuando lo habilitas, deshabilítalo porque eso quiere decir que tu servidor ya está comprimiendo las páginas."
+
+#: options.php:363
+msgid "Enable on-the-fly compression"
+msgstr "Habilitar compresión al vuelo"
+
+#: options.php:368
+msgid "Enable on the fly compression for non cached pages."
+msgstr "Habilitar compresión al vuelo de las páginas no cacheadas."
+
+#: options.php:374
+msgid "When the home is refreshed, refresh even the"
+msgstr "Cuando se actualiza la página de inicio, actualizar hasta las últimas"
+
+#: options.php:376
+msgid "latest post"
+msgstr "últimas entradas"
+
+#: options.php:378
+msgid "The number of latest posts to invalidate when the home is invalidated."
+msgstr "Número de entradas que hay que invalidar cuando se invalida la portada."
+
+#: options.php:384
+msgid "When a post is edited"
+msgstr "Cuando se edita una entrada"
+
+#: options.php:396
+msgid "When a post receives a comment"
+msgstr "Cuando una entrada recibe un comentario"
+
+#: options.php:408
+msgid "Cache folder"
+msgstr "Directorio de la caché"
+
+#: options.php:412
+msgid "Leave blank for default value."
+msgstr "Déjalo en blanco para usar el valor predeterminado."
+
+#: options.php:413
+msgid "You can even evaluate to leave this blank and create a symbolic link <code>wp-content/cache/hyper-cache -&gt; [your folder]</code>."
+msgstr "También puedes considerar la opción de dejar esto en blanco y crear un enlace simbólico <code>wp-content/cache/hyper-cache -&gt; [tu directorio]</code>."
+
+#: options.php:414
+msgid "A wrong configuration can destroy your blog."
+msgstr "Una configuración incorrecta puede destruir tu blog."
+
+#: options.php:419
+msgid "Next autoclean will run in"
+msgstr "La próxima autolimpieza se ejcutará en"
+
+#: options.php:423
+msgid "will run again in"
+msgstr "se ejecurá otra vez en"
+
+#: options.php:423
+msgid "minutes"
+msgstr "minutos"
+
+#: options.php:425
+msgid "The autoclean process removes old files to save disk space."
+msgstr "El proceso de autolimpieza elimina ficheros antiguos para ahorrar espacio en disco."
+
+#: options.php:426
+msgid "If you enable the \"serve expired pages to bots\", you should disable the auto clean."
+msgstr "Si habilitas \"servir páginas caducadas a los bots\", deberías deshabilitar la autolimpieza."
+
+#: options.php:431
+msgid "Allow browser caching"
+msgstr "Permitir la caché del navegador"
+
+#: options.php:437
+msgid "Lets browser to use a local copy of the page if newer than specified."
+msgstr "Permite que los navegadores usen una copia local de la página si es más nueva de lo especificado."
+
+#: options.php:438
+msgid "Attention: the browser may not reload a page from the blog showing not updated content. "
+msgstr "Atención: el navegador puede no actualizar una página del blog y mostrar contenido obsoleto."
+
+#: options.php:444
+msgid "Remove HTTP/HTTPS"
+msgstr "Eliminar HTTP/HTTPS"
+
+#: options.php:456
+msgid "HTTPS"
+msgstr "HTTPS"
+
+#: options.php:458 options.php:630
+msgid "Bypass the cache"
+msgstr "Evitar la caché"
+
+#: options.php:459
+msgid "Build a separated cache"
+msgstr "Construir una caché independiente"
+
+#: options.php:460
+msgid "Use the standard cache (I have HTTP/HTTPS aware pages)"
+msgstr "Utilizar la caché estándar (Tengo páginas que cambian según HTTP/HTTPS)"
+
+#: options.php:462
+msgid "Pages are usually different when served in HTTP and HTTPS."
+msgstr "La páginas suelen ser distintas según se sirvan con HTTP o con HTTPS."
+
+#: options.php:468
+msgid "Use readfile()"
+msgstr "Utilizar readfile()"
+
+#: options.php:472
+msgid "Use the PHP function readfile() to send back a page."
+msgstr "Utilizar la función readfile() de PHP para devolver una página."
+
+#: options.php:473
+msgid "It should be better than the file_get_contents() actually used."
+msgstr "Debería ser mejor que el file_get_contents() que se usa ahora."
+
+#: options.php:479
+msgid "Ignore no-cache header from bots"
+msgstr "Ignorar la cabecera no-cache de los bots"
+
+#: options.php:490
+msgid "Serve expired pages to bots"
+msgstr "Servir páginas caducadas a los bots"
+
+#: options.php:494
+msgid "Serve a cache page even if expired when requested by bots."
+msgstr "Servir una página cacheada incluso si está caducada si el que la solicita es un bot."
+
+#: options.php:505
+msgid "Do not cache the home page"
+msgstr "No cachear la página de inicio"
+
+#: options.php:509
+msgid "When active, the home page and its subpages are not cached."
+msgstr "Cuando está activo, la página de inicio y sus subpáginas no son cacheadas."
+
+#: options.php:510
+msgid "Works even with a static home page."
+msgstr "Funciona incluso con una portada estática."
+
+#: options.php:515
+msgid "Do not cache the \"404 - Not found\" page"
+msgstr "No cachear la página de \"404 - No encontrado\""
+
+#: options.php:519
+msgid "When active, Hyper Cache does not serve a cached \"404 not found\" page."
+msgstr "Cuando está activo, Hyper Caché no sirve una página de \"404 - No encontrado\" cacheada."
+
+#: options.php:520
+msgid "Requests which lead to a 404 not found page overload you blog since WordPress must generate a full page"
+msgstr "Las peticiones que derivan en una página de 404 no encontrado sobrecargan tu blog ya que WordPress tiene que generar una página completa"
+
+#: options.php:521
+msgid "Caching it help in reduce that overload."
+msgstr "Cachearlas ayuda a reducir esa sobrecarga."
+
+#: options.php:526
+msgid "Do not cache the blog main feeds"
+msgstr "No cachear los feeds principales del blog"
+
+#: options.php:530
+msgid "When active, the main blog feed %s is not cached."
+msgstr "Cuando está activo, el feed principal del blog %s no se cachea."
+
+#: options.php:536
+msgid "Do not cache single post comment feed"
+msgstr "No cachear el feed de comentarios de las entradas."
+
+#: options.php:540
+msgid "When active, the single post comment feeds are not cached."
+msgstr "Cuando está activo, no se cachea el feed de comentarios de las entradas."
+
+#: options.php:541
+msgid "Usually I enable this bypass since it saves disk space and comment feed on single posts are not usually used."
+msgstr "Normalmente habilito esta excepción porque ahorra espacio en disco y los feeds de comentarios de las entradas no se suelen usar."
+
+#: options.php:546
+msgid "Exact URIs to bypass"
+msgstr "URIs exactas que ignorar"
+
+#: options.php:551 options.php:564 options.php:578 options.php:589
+#: options.php:660
+msgid "One per line."
+msgstr "Una por línea."
+
+#: options.php:552
+msgid "Those URIs are exactly matched."
+msgstr "Esas URIs se comparan exactamente."
+
+#: options.php:553 options.php:566
+msgid "For example if you add the <code>/my-single-post</code> URI and a request is received for <code>http://youblog.com<strong>/my-single-post</strong></code> that page IS NOT cached."
+msgstr "Por ejemplo, si añades la URI <code>/mi-entrada</code> URI y se recibe una petición de  <code>http://tublog.com<strong>/mi-entrada</strong></code> esa página NO ES cacheada."
+
+#: options.php:554
+msgid "A request for <code>http://youblog.com<strong>/my-single-post-something</strong></code> IS cached."
+msgstr "Una petición de <code>http://tublog.com<strong>/mi-entrada-algo</strong></code> SÍ se cachea."
+
+#: options.php:559
+msgid "(Starting with) URIs to bypass"
+msgstr "(comienzos de) URIs que ignorar"
+
+#: options.php:565
+msgid "Those URIs match if a requested URI starts with one of them."
+msgstr "Esas URIs se aplican si la URI de la petición empieza como alguna de ellas."
+
+#: options.php:568
+msgid "A request for <code>http://youblog.com<strong>/my-single-post-something</strong></code> IS NOT cached as well."
+msgstr "Una petición de <code>http://tublog.com<strong>/mi-entrada-algo</strong></code> TAMPOCO se cachea."
+
+#: options.php:573
+msgid "Cookies to bypass"
+msgstr "Cookies que ignorar"
+
+#: options.php:579
+msgid "If the visitor has a cookie named as one of the listed values, the cache is bypassed."
+msgstr "Si el visitante tiene una cookie que se llame como uno de los valores introducidos, se saltará la caché."
+
+#: options.php:584
+msgid "Devices (user agents) to bypass"
+msgstr "Dispositivos (user agents) que evitar"
+
+#: options.php:590
+msgid "If the visitor has a device with a user agent named as one of the listed values, the cache is bypassed."
+msgstr "Si el visitante tiene un dispositivo con un agente usuario que se llame como uno de los valores listados, se evita la caché."
+
+#: options.php:596
+msgid "Don't serve cached pages to comment authors"
+msgstr "No servir páginas cacheadas a los autores de comentarios"
+
+#: options.php:601
+msgid ""
+"Hyper Cache is able to work with users who left a comment and completes the comment form withr\n"
+"                                user data even on cached page"
+msgstr "Hyper Cache es capaz de trabajar con usuarios que han dejado un comentario y rellenar sus datos en el formulario de comentarios incluso en las páginas cacheadas."
+
+#: options.php:603
+msgid "(with a small JavaScript added at the end of the pages)."
+msgstr "(con un pequeño JavaScript añadido al final de las páginas)."
+
+#: options.php:604
+msgid "But the \"awaiting moderation\" message cannot be shown."
+msgstr "Pero el mensaje de \"Esperando moderación\" no se puede mostrar."
+
+#: options.php:605
+msgid "If you have few readers who comment you can disable this feature to get back the classical WordPress comment flow."
+msgstr "Si tienes pocos lectores que comentan, puedes deshabilitar esta función para volver al flujo de comentarios clásico de WordPress."
+
+#: options.php:610
+msgid "Reject posts older than"
+msgstr "Rechazar las entradas que tengan más de"
+
+#: options.php:613
+msgid "days"
+msgstr "días"
+
+#: options.php:615
+msgid "Older posts won't be cached and stored resulting in a lower disk space usage."
+msgstr "Las entradas más viejas no se cachearán, resultando en un menor uso de disco."
+
+#: options.php:616
+msgid "Useful when older posts have low traffic."
+msgstr "Es útil cuando las entradas antiguas tienen poco tráfico."
+
+#: options.php:626
+msgid "Working mode"
+msgstr "Modo de trabajo"
+
+#: options.php:628
+msgid "Use the standard cache"
+msgstr "Usar la caché estándar"
+
+#: options.php:629
+msgid "Cache separately"
+msgstr "Cachear por separado"
+
+#: options.php:633
+msgid "Choose \"cache separately\" if you produce different content for mobile devices"
+msgstr "Elige \"cachear por separado\" si produces contenido distinto para los dispositivos móviles"
+
+#: options.php:634
+msgid "See for example my <a href=\"http://www.satollo.net/plugins/header-footer\" target=\"_blank\">Header and Footer</a> plugin for different desktop/mobile ads injection in posts."
+msgstr "Mira por ejemplo mi plugin <a href=\"http://www.satollo.net/plugins/header-footer\" target=\"_blank\">Header and Footer</a> que inyecta en las entradas distintos anuncios en móviles y en sobremesas."
+
+#: options.php:639
+msgid "Mobile theme"
+msgstr "Tema móvil"
+
+#: options.php:644
+msgid "Use the active blog theme"
+msgstr "Usar el tema activo del blog"
+
+#: options.php:650
+msgid "If you have plugins which produce different content for desktop and mobile devices, you should use a separate cache for mobile."
+msgstr "Si usas plugins que producen contenido distinto para dispositivos móviles y de sobremesa, deberías usar una caché independiente para los móviles."
+
+#: options.php:655
+msgid "Mobile user agents"
+msgstr "Agentes de usuario móviles"
+
+#: options.php:658
+msgid "Reset"
+msgstr "Limpiar"
+
+#: options.php:661
+msgid "A \"user agent\" is a text which identify the kind of device used to surf the site."
+msgstr "Un \"user agent\" es un texto que identifica el tipo de dispositivo usado para navegar por el sitio."
+
+#: options.php:662
+msgid "For example and iPhone has <code>iphone</code> as user agent."
+msgstr "Por ejemplo un iPhone tiene <code>iphone</code> como agente usuario."
+
+#: options.php:672
+msgid "Save"
+msgstr "Guardar"
+
+#. Plugin Name of the plugin/theme
+msgid "Hyper Cache"
+msgstr "Hyper Cache"
+
+#. Plugin URI of the plugin/theme
+msgid "http://www.satollo.net/plugins/hyper-cache"
+msgstr "http://www.satollo.net/plugins/hyper-cache"
+
+#. Description of the plugin/theme
+msgid "A easy to configure and efficient cache to increase the speed of your blog."
+msgstr "Una caché eficiente y fácil de configurar para mejorar la velocidad de tu blog."
+
+#. Author of the plugin/theme
+msgid "Stefano Lissa"
+msgstr "Stefano Lissa"
+
+#. Author URI of the plugin/theme
+msgid "http://www.satollo.net"
+msgstr "http://www.satollo.net"
+
+#: options.php:77
+msgid "Options saved. If you changed any of the bypasses empty the cache."
+msgstr "Opciones guardadas. Si has cambiado alguna de las excepciones, vacía la caché."
+
+#: options.php:83
+msgid "Unable to write the <code>wp-content/advanced-cache.php</code> file. Check the file or folder permissions."
+msgstr "No se ha podio escribir al archivo <code>wp-content/advanced-cache.php</code>. Comprueba los permisos de escritura."
+
+#: options.php:91
+msgid "The cache folder has been cleaned."
+msgstr "Se ha vaciado el directorio de la caché."
+
+#: options.php:96
+msgid "Done!"
+msgstr "¡Hecho!"
+
+#: options.php:133
+msgid "Options deleted"
+msgstr "Opciones borradas"
+
+#: options.php:138
+msgid "Cache size"
+msgstr "Tamaño de la caché"
+
+#: options.php:149
+msgid "Old Hyper Cache options are missing or not readable"
+msgstr "Los ajustes antiguos de Hyper Cache no están o no son legibles"
+
+#: options.php:172
+msgid "Old options imported, now review them and save."
+msgstr "Ajustes antiguos importados, revísalos y guarda."
+
+#: options.php:221
+msgid "You must add to the file wp-config.php (after the <code>define(\"WPLANG\", \"\");</code>) the line of code: <code>define(\"WP_CACHE\", true);</code>"
+msgstr "Debes añadir de el archivo wp-config.php (después de <code>define(\"WPLANG\", \"\");</code>) la línea de código: <code>define(\"WP_CACHE\", true);</code>"
+
+#: options.php:229
+msgid "You must save the options since some files must be updated."
+msgstr "Debes guardar las opciones porque es necesario actualizar algunos archivos."
+
+#: options.php:238
+msgid "Hyper Cache was not able to create or find the %s folder."
+msgstr "Hyper Cache no ha sido capaz de crear o encontrar el directorio %s"
+
+#: options.php:240
+msgid "Please create it manually with list, write and read permissions (usually 777)."
+msgstr "Por favor, créalo manualmente con permisos de acceso, lectura y escritura (normalmente 777)."
+
+#: options.php:251
+msgid "You should choose a different permalink structure."
+msgstr "Deberías elegir una estructura de enlaces permanentes distinta."
+
+#: options.php:252
+msgid "Change it on the <a href=\"options-permalink.php\" target=\"_blank\">permalink panel</a> otherwise Hyper Cache cannot work properly."
+msgstr "Si no la cambias en el <a href=\"options-permalink.php\" target=\"_blank\">panel de enlaces permamentes</a> Hyper Cache no puede funcionar bien."
+
+#: options.php:285
+msgid "Clean the whole cache"
+msgstr "Vaciar toda la caché"
+
+#: options.php:286
+msgid "Clean home and archives"
+msgstr "Vaciar la página de inicio y las páginas de archivo"
