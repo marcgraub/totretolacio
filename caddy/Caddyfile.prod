@@ -1,0 +1,21 @@
+totretolacio.com {
+    tls {
+        dns cloudflare {env.CADDY_CLOUDFLARE_API_TOKEN}
+        resolvers 1.1.1.1
+    }
+    
+	log {
+		format console
+	}
+
+    root * /srv/totretolacio
+    
+    php_fastcgi php:9000 {
+        root /var/www/html
+    }
+    file_server
+    encode zstd gzip
+
+    @blocked path /xmlrpc.php *.sql /wp-content/uploads/*.php
+    rewrite @blocked /index.php
+}
