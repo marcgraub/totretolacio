@@ -1,0 +1,11 @@
+PROCESSED on Fri, 02 Feb 2024 00:05:00 +0000
+/wp-includes/css/dist/block-library/style.min.css
+/wp-content/plugins/contact-form-7/includes/css/styles.css
+/wp-content/themes/smartweb/js/mmenu/core/css/jquery.mmenu.css
+/wp-content/themes/smartweb/js/mmenu/core/css/jquery.mmenu.positioning.css
+/wp-content/themes/smartweb/js/swipebox/swipebox.css
+/wp-content/themes/smartweb/style.css
+/wp-content/plugins/jetpack/modules/widgets/eu-cookie-law/style.css
+/wp-content/plugins/jetpack/modules/widgets/social-icons/social-icons.css
+/wp-content/plugins/jetpack/css/jetpack.css
+PROCESSED from https://totretolacio.com/es/

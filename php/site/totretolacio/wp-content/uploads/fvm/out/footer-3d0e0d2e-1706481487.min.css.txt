@@ -1,3 +1,0 @@
-PROCESSED on Tue, 30 Jan 2024 16:28:44 +0000
-/wp-content/plugins/jetpack/css/jetpack.css
-PROCESSED from https://127.0.0.1/wp-login.php?redirect_to=https%3A%2F%2F127.0.0.1%2Fwp-admin%2F&reauth=1
