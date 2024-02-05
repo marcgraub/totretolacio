@@ -25,9 +25,9 @@
         $lenght= count($items);
   if($dropDown) {
     for($i=0; $i<$lenght; $i++){
-
          if($items[$i]->menu_item_parent == 0 && $pare == "false"){
-  	       	if($items[$i+1]->menu_item_parent != 0){
+          /*echo "<pre>",print_r ($items),"</pre>";*/
+  	       	if(isset($items[$i+1]) && $items[$i+1]->menu_item_parent != 0){
   	       		$output = $output."<li class='dropdown'><a ". ($items[$i]->url == "#"?"class='noselect cursorDefault'":"href=".$items[$i]->url) .">".$items[$i]->title."</a><ul class='dropdown-menu blue-background'>";
   	       		$pare ="true";
   	       	}else{
