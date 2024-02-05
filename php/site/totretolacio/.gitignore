@@ -6,3 +6,6 @@
 
 # htaccess
 /.htaccess
+
+# caches
+/wp-content/cache/*
