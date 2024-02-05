@@ -19,10 +19,10 @@ jobs:
           MAIN_BRANCH: ${{ secrets.MAIN_BRANCH }}
         run: |
           mkdir -p ~/.ssh
-          echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa
+          echo "$SSH_PRIVATE_KEY" > /home/runner/.ssh/id_rsa
+          chmod 600 /home/runner/.ssh/id_rsa
           ssh-keyscan -H "$SERVER_HOST" >> ~/.ssh/known_hosts
-          ssh -i ~/.ssh/id_rsa -A $SSH_USER@$SERVER_HOST "cd $WORK_DIR && git checkout $MAIN_BRANCH && git pull && exit"
+          ssh -A $SSH_USER@$SERVER_HOST "cd $WORK_DIR && git checkout $MAIN_BRANCH && git pull && exit"
       - name: connect and pull
         run: ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "cd $WORK_DIR && git checkout ${{ secrets.MAIN_BRANCH }} && git pull && exit"
       - name: cleanup
