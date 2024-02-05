@@ -859,7 +859,8 @@ class totretolacioaNavMenuWalker extends Walker_Nav_Menu {
 	        if ( FALSE === strpos( $url, '.js' ) ) return $url;
 	        //if ( strpos( $url, 'jquery.js' ) ) return $url;
 	        // return "$url' defer ";
-	        return "$url' defer='defer";
+	        return "$url";
+	        //return "$url' defer='defer";
 	    }
 	    add_filter( 'clean_url', 'defer_parsing_of_js', 11, 1 );
 	}
