@@ -9,3 +9,4 @@
 
 # caches
 /wp-content/cache/*
+/wp-content/uploads/fvm/out/footer*.*
