@@ -73,10 +73,11 @@ window.eml = window.eml || { l10n: {} };
 
         saveMenuOrder: function() {
 
-            var nonce = wp.media.model.settings.post.nonce || eml.l10n.bulk_edit_nonce;
+            var nonce = wp.media.model.settings.post.nonce || eml.l10n.bulk_edit_nonce,
+                orderby = this.props.get('orderby') || 'menuOrder';
 
 
-            if ( 'menuOrder' !== this.props.get('orderby') ) {
+            if ( 'menuOrder' !== orderby ) {
                 return;
             }
 
@@ -143,6 +144,10 @@ window.eml = window.eml || { l10n: {} };
         defaultProps: {
             orderby: eml.l10n.media_orderby,
             order: eml.l10n.media_order
+        },
+
+        defaultArgs: {
+            posts_per_page: eml.l10n.loads_per_page
         },
 
         queries: [],

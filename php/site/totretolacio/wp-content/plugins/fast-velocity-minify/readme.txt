@@ -1,70 +1,38 @@
 === Fast Velocity Minify ===
 Contributors: Alignak
-Tags: PHP Minify, Lighthouse, GTmetrix, Pingdom, Pagespeed, CSS Merging, JS Merging, CSS Minification, JS Minification, Speed Optimization, HTML Minification, Performance, Optimization, Speed, Fast
-Requires at least: 4.5
-Stable tag: 2.4.8
-Tested up to: 5.0
+Tags: PHP Minify, Lighthouse, GTmetrix, Pingdom, Pagespeed, Merging, Minification, Optimization, Speed, Performance, FVM
+Requires at least: 5.6
+Requires PHP: 7.2
+Stable tag: 3.4.1
+Tested up to: 6.3.3
+Text Domain: fast-velocity-minify
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
-Improve your speed score on GTmetrix, Pingdom Tools and Google PageSpeed Insights by merging and minifying CSS, JavaScript and HTML, setting up HTTP preload and preconnect headers, loading CSS async and a few more options. 
+Improve your speed score on GTmetrix, Pingdom Tools and Google PageSpeed Insights by adjusting CSS and JS files (defer, async, minify, combine, etc), compressing HTML, simplifying fonts and a few more speed optimization options. 
  
 
 == Description ==
+HTML, CSS & JS optimization plugin for developers and advanced users. Note you need to look into the HELP tab after installing the plugin and manually configure it for your site. Each site is different, so the default recommendations may or may not work for you and you will need to test and find out how to adjust your settings.
 
-This plugin reduces HTTP requests by merging CSS & Javascript files into groups of files, while attempting to use the least amount of files as possible. It minifies CSS and JS files with PHP Minify (no extra requirements).
+Minification is done on the frontend during the first uncached request. Once the first request is processed, any other pages that require the same set of CSS and JS files will be able to reuse the same generated static CSS or JS file.
 
-There are also options to apply critical CSS and load CSS async, as well as to define HTTP preload and preconnect headers (server push).
+If your cache is growing significantly, this could mean one of your CSS or JS files is dynamic and changes on every pageview. In that case, you would need to add the file to the ignore list, else the cache would grow indefinitely (because obviously the original files themselves are dynamic and when you minify, the plugin sees a different file). 
 
-Minification is done on the frontend during the first uncached request. Once the first request is processed, any other pages that require the same set of CSS and JavaScript files, will be served that same (static) cache file.
+Kindly read the HELP section after installing the plugin, about possible issues and how to solve them.
 
-This plugin includes options for developers and advanced users, however the default settings should work just fine for most sites.
+= Additional Optimization =
 
-= Aditional Optimization =
-
-I can offer you aditional `custom made` optimization on top of this plugin. If you would like to hire me, please visit my profile links for further information.
-
-
-= Features =
-
-*	Merge JS and CSS files into groups to reduce the number of HTTP requests
-*	Google Fonts merging, inlining and optimization
-*	Handles scripts loaded both in the header & footer separately
-*	Keeps the order of the scripts even if you exclude some files from minification
-*	Supports localized scripts (https://codex.wordpress.org/Function_Reference/wp_localize_script)
-*	Minifies CSS and JS with PHP Minify only, no third party software or libraries needed.
-*	Option to defer JavaScript and CSS files, either globally or pagespeed insights only.
-*	Creates static cache files in the uploads directory.
-*	Preserves your original files, by duplicating and copying those files to the uploads directory 
-*	View the status and detailed logs on the WordPress admin page.
-*	Option to Minify HTML, remove extra info from the header and other optimizations.
-*	Ability to turn off minification for JS, CSS or HTML (purge the cache to see it)
-*	Ability to turn off CSS or JS merging completely (so you can debug which section causes conflicts and exclude the offending files)
-*	Ability to manually ignore JavaScript or CSS files that conflict when merged together (please report if you find some)
-*	Support for conditional scripts and styles, as well as inlined code that depends on the handles
-*	Support for multisite installations (each site has its own settings)
-*	Support for gzip_static on Nginx
-*	Support for preconnect and preload headers
-*	CDN option, to rewrite all static assets inside the JS or CSS files
-*	WP CLI support to check stats and purge the cache
-*	Auto purging of cache files for W3 Total Cache, WP Supercache, WP Rocket, Wp Fastest Cache, Cachify, Comet Cache, Zen Cache, LiteSpeed Cache, Nginx Cache (by Till Krüss ), SG Optimizer, HyperCache, Cache Enabler, Godaddy Managed WordPress Hosting and WP Engine (read the FAQs)
-*	and some more...
+I can offer you additional `custom made` optimization on top of this plugin. If you would like to hire me, please visit my profile links for further information.
 
 
 = WP-CLI Commands =
 *	Purge all caches: `wp fvm purge`
 *	Purge all caches on a network site: `wp --url=blog.example.com fvm purge`
 *	Purge all caches on the entire network (linux): `wp site list --field=url | xargs -n1 -I % wp --url=% fvm purge`
-*	Get cache size: `wp fvm stats`
-*	Get cache size on a network site: `wp --url=blog.example.com fvm stats`
-*	Get cache size on each site (linux): `wp site list --field=url | xargs -n1 -I % wp --url=% fvm stats`
 
-
-= Notes =
-*	The JavaScript minification is by [PHP Minify](https://github.com/matthiasmullie/minify)
-*	The alternative JavaScript minification is by [YUI Compressor](http://yui.github.io/yuicompressor/)
-*	Compatible with Nginx, HHVM and PHP 7. 
-*	Minimum requirements are PHP 5.5 and WP 4.4, from version 1.4.0 onwards
+= How to customize the cache path ? =
+You need a public directory to store and serve minified cache files. If you need to customize the path and url, you need to edit your `wp-config.php` and add both `define('FVM_CACHE_DIR', '/absolute/path/to/example.com/your/public/directory');` and `define('FVM_CACHE_URL', 'https://example.com/your/public/directory');` .
 
 
 == Installation ==
@@ -76,376 +44,295 @@ I can offer you aditional `custom made` optimization on top of this plugin. If y
 
 == Screenshots ==
 
-1. The Status and Logs page.
-2. The Settings page.
-3. The Pro settings.
-4. The Developers settings.
-
-== Frequently Asked Questions ==
-
-= Can I update plugins and themes after installing FVM? =
-
-Yes. FVM doesn't touch your original files, it merely copies them to the uploads directory and merges them together with minification. If you install new plugins, update or change themes, FVM will purge its cache as well as some of the most popular cache plugins. It's recommended that you purge your page cache on the server "after" purging Fast Velocity Minify, if you have some cache on the server side. 
-
-= After installing, why did my site feels slow to load? =
-
-Please see the question below.
-
-
-= Why are there lots of JS and CSS files listed on the status page and why is the cache directory taking so much space? =
-
-Beware! Some themes combine CSS using PHP with a query string that changes on every pageload... (this is bad practice). When FVM sees a different url being enqueued, it will consider that as a new file and try to create a new set of files on every pageview too. You must exclude that dynamic url via the Ignore List on FVM for your cache to be efficient and stop growing. Also note, if your pages enqueue different styles and javascript in different pages, that is "one set" of files to be merged.
-
-
-= How can I exclude certain assets by wildcard? =
-
-Each line on the ignore list will try to match a substring against all CSS or JS files, for example `//yoursite.com/wp-content/plugins/some-plugin/js/` will ignore all files inside that directory. You can also shorten the URL like `/some-plugin/js/` and then it will match any css or js URL that has `/some-plugin/js/` on the path. Obviously, doing `/js/` would match any files inside any "/js/" directory and in any location, so to avoid unexpected situations please always use the longest, most specific path you can use. 
-
-
-= Why is the ignore list not working? =
-
-The ignore list "is" working, just try to use partial paths (see wildcard help above) and use relative urls only without any query vars. 
-
-
-= Is it compatible with other caching plugins? =
-
-Please note, you must disable any features on your theme or cache plugins, which perform minification of css, html and js. Double minification not only slows the whole process, but also has the high potential of causing conflicts in javascript. The plugin will try to automatically purge several popular cache plugins, however if you have a cache on the server side (some hosting services have this) you may need to purge it manually, after you purge FVM. The automatic purge is active for the following plugins and hosting: W3 Total Cache, WP Supercache, WP Rocket, Wp Fastest Cache, Cachify, Comet Cache, Zen Cache, LiteSpeed Cache, Cache Enabler, SG Optimizer, Godaddy Managed WordPress Hosting and WP Engine
-
-= Do you recommend a specific Cache Plugin? =
-Yes! Currently FVM recommends the "Cache Enabler" plugin, for it's simplicity, compatibility with most systems and performance. 
-
-
-= Is it resource intensive, or will it use too much CPU on my shared hosting plan? =
-
-Unless you are not excluding dynamic CSS files that change the url in every pageload, no it is not heavy at all. On the first run, each single file is minified into an intermediate cache. When a new group of CSS/JS files is found on a new page, it reuses those files and merges them into a new static cache file. All pages that request the same group of CSS or JS files will also make use of that file, thus regeneration only happens once ina while.
-
-
-= Is it compatible with multisites? =
-
-Yes, it generates a new cache file for every different set of JS and CSS requirements it finds, but you must enable and configure FVM settings for each site in your network separatly (no global settings for all sites).
-
-
-= How do I use the pre-compressed files with gzip_static on Nginx? =
-
-When we merge and minify the css and js files, we also create a `.gz` file to be used with `gzip_static` on Nginx. You need to enable this feature on your Nginx configuration file if you want to make use of it.
-
-
-= Is it compatible with AdSense and other ad networks? =
-
-If you are just insertigng ads on your pages, yes. If you are using a custom script to inject those ads, please double check if it works. 
-
-
-= After installing, why are some images and sliders not working? =
-
-a) You cannot do double minification, so make sure you have disabled any features on your theme or other plugins that perform minification of css, html and js files.
-
-b) If you enabled the option to defer JS or CSS, please note that some themes and plugins need jQuery and other libraries to be render blocking, so they are not "undefined" during page load.
-
-c) The plugin relies on PHP Minify to minify JavaScript and css files, however it is not a perfect library and there are plugins that are already minified and do not output a "min.js" or "min.css" filename (and end up being minified again). Try to disable minification on JS and CSS files and purge the cache, then either dequeue it and enqueue an alternative file or add it to the ignore list.
-
-d) Sometimes a plugin conflicts with another when merged (look at google chrome console log for hints). Try to disable CSS processing first and see if it works. Disable JS processing second and see if it works. Try to disable HTML minification last and see if it works. If one of those work, you know there is a conflict when merging/minifying.
-
-e) If you have a conflict, try to add each CSS and each JS file to the ignore list one by one, until you find the one that causes the conflict. If you have no idea of which files to add, check the log file on the "status page" for a list of files being merged into each generated file.
-
-
-= Why are some of the CSS and JS files not being merged? =
-
-The plugin only processes JS and CSS files enqueued using the official WordPress api method - https://developer.wordpress.org/themes/basics/including-css-javascript/ -as well as files from the same domain (unless specified on the settings). 
-
-
-= How to undo all changes done by the plugin? =
-
-The plugin itself does not do any "changes" to your site and all original files are untouched. It intercepts the enqueued CSS and JS files just before printing your HTML, copies them and enqueues the newly optimized cached version of those files to the frontend. As with any plugin... simply disable or uninstall the plugin, purge all caches you may have in use (plugins, server, cloudflare, etc.) and the site will go back to what it was before installing it. The plugin does not delete anything from the database or modify any of your files. 
-
-
-= I have disabled or deleted the plugin but my design is still broken! =
-
-Some "cheap" (or sometimes expensive) "optimized" hosting providers, implement a (misconfigured) aggressive cache on their servers that caches PHP code execution and PHP files. I've seen people completely deleting all WordPress files from their host via SFTP/FTP and the website kept working fine for hours. Furthermore, very often they rate limit your cache purge requests... so if you delete FVM and are still seeing references to FVM files on the "view-source:https://example.com" please be patient and contact your web hosting to purge all caches. Providers known to have this issue are some plans on hostgator and iPage (please report others if you find them).
-
-
-= Why is my Visual Composer or Page Editor not working? =
-
-Some plugins and themes need to edit the layout and styles on the frontend. If you have trouble with page editors, please enable the "Fix Page Editors" option on FVM and purge your caches. Note: You will only see the FVM minification working when you're logged out or using another browser after this setting. 
-
-= What are the recommended cloudflare settings for this plugin? =
-
-On the "Speed" tab, deselect the Auto Minify for JavaScript, CSS and HTML as well as the Rocket Loader option as there is no benefit of using them with our plugin (we already minify things). Those options can also break the design due to double minification or the fact that the Rocket Loader is still experimental (you can read about that on the "Help" link under each selected option on cloudflare).
-
-
-= How can I load CSS async? =
-
-You are probably a developer if you are trying this. The answer is: make sure FVM is only generating 1 CSS file, because "async" means multiple files will load out of order (but CSS needs order most of the times). If FVM is generating more than 1 CSS file, try to manually dequeue some of the CSS files that are breaking the series on FVM (such as external enqueued files), or add their domain to the settings to be merged together. Please note... this is an advanced option for highly skilled developers. Do not try to fiddle with these settings if you are not one, as it will almost certainly break your site layout and functionality.
-
-
-= I have a complaint or I need support right now. =
-
-Before getting angry because you have no answer within a few hours (even with paid plugins, sometimes it takes weeks...), please be informed about how wordpress.org and the plugins directory work. The plugins directory is an open source, free service where developers and programmers contribute (on their free time) with plugins that can be downloaded and installed by anyone "at their own risk" and are all released under the GPL license. While all plugins have to be approved and reviewed by the WordPress team before being published (for dangerous code, spam, etc.) this does not change the license or add any warranty. All plugins are provided as they are, free of charge and should be used at your own risk (so you should make backups before installing any plugin or performing updates) and it is your sole responsibility if you break your site after installing a plugin from the plugins directory. For a full version of the license, please read: https://wordpress.org/about/gpl/
-
-= Why haven't you replied to my topic on the support forum yet? =
-
-Support is provided by plugin authors on their free time and without warranty of a reply, so you can experience different levels of support level from plugin to plugin. As the author of this plugin I strive to provide support on a daily basis and I can take a look and help you with some issues related with my plugin, but please note that this is done out of my goodwill and in no way I have any legal or moral obligation for doing this. Sometimes I am extremely busy and may take a few days to reply, but I will always reply. 
-
-= But I really need fast support right now, is there any other way? =
-I am also available for hiring if you need custom-made speed optimizations. After you have isntalled the plugin, check the "Help" tab for contact information, or check my profile links here on WordPress. 
-
-
-= Where can I report bugs? =
-
-You can get support on the official WordPress plugin page at https://wordpress.org/support/plugin/fast-velocity-minify 
-Alternatively, you can reach me via info (at) fastvelocity.com for security or other vulnerabilities.
-
-= How can I donate to the plugin author? =
-
-If you would like to donate any amount to the plugin author (thank you in advance), you can do it via PayPal at https://goo.gl/vpLrSV
-
+1. The Settings page.
 
 
 == Changelog ==
 
-= 2.4.8 [2018.12.07] =
-* changed the file permissions for the generated cache directory and files, to match the uploads directory
-* added some extra checks for when PHP is running in safe mode
+= 3.4.1 [2023.10.19] =
+* removed integrity attributes on minified files
 
-= 2.4.7 [2018.12.06] =
-* added better default options after new install
-* added option to preserve FVM settings on deactivation
-* added an HTML comment to the frontend with the path and notification, when FVM cannot generate the cache files (ie: wrong file permissions)
-* added a notification on wp-admin when FVM cannot generate the cache files due to wrong permissions
-* added an option to force "chmod 0777" on FVM cache files, to avoid errors on servers that need more than "chmod 0755"
-* improved the google fonts merging option when the enqueue is faulty (ie: incomplete google font urls )
-* fixed the cache purge notifications not showing on wp-admin
+= 3.4.0 [2023.02.21] =
+* better third party cache plugins detection
 
-= 2.4.6 [2018.12.05] =
-* fixed a bug that could cause an error 500 if an enqueued CSS or JS file was not found
-* added brotli_static support, if you have the php-ext-brotli extension installed - https://github.com/kjdev/php-ext-brotli
+= 3.3.9 [2023.01.21] =
+* fixed a bug with PHP 8.1 detected encodings and a few notices
 
-= 2.4.5 [2018.12.04] =
-* fixed a bug, where it may show a warning during cache purge on wp-admin
-* exclude footer FVM generated files from the HTTP header preload option (footer files are not in the critical path)
+= 3.3.8 [2022.12.28] =
+* fixed a typo
 
-= 2.4.4 [2018.12.03] =
-* added option to inline CSS in the footer, while still preserving the merged file in the header
-* improvements for the google fonts merging option
-* fixed double notification, when purging caches without a cache plugin
+= 3.3.7 [2022.12.28] =
+* fixed a bug with the Allowed Query Strings setting
 
-= 2.4.3 [2018.12.03] =
-* added font-display, to ensure text remains visible during webfont load for inlined google fonts and font-awesome
-* added automatic removal of "source mappings" from JS files during merging or minification
-* added font awesome async and exclusion from PSI options, as well as merging and inlining when the url matches "font-awesome" (ie: cdnjs)
-* added automatically inline of small CSS code (up to 20KB) for any FVM CSS files in the footer (requests reduction)
-* added automatically inline of small CSS code (up to 20KB) for any FVM CSS files in the header, which are not of mediatype "all"
-* improved the cache purge button (no more redirect from frontend to backend)
-* updated PHP Minify and Path Converter from master
-* bug fixes related to "Exclude JS files from PSI" option
+= 3.3.6 [2022.12.13] =
+* buffer compatibility improvements with WP-Super-Cache, W3 Total Cache, WP Rocket, LiteSpeed Cache and Cache Enabler
 
-= 2.4.2 [2018.11.29] =
-* fixed a bug with the "Exclude JS files in the ignore list from PSI" option (it wasn't excluding properly)
-* improved functionality with the "Exclude CSS files from PSI" option (now works with both inline and link stylesheets)
-* added an option to automatically preload the CSS and JS files generated by FVM (beware that some server caches like Pantheon may push old css and js files even after purging caches on FVM)
-* improved JavaScript minification
+= 3.3.5 [2022.12.13] =
+* fixed a notice with php cli
 
-= 2.4.1 [2018.11.27] =
-* better FVM default settings
+= 3.3.3 [2022.12.12] =
+* buffer bug fix
 
-= 2.4.0 [2018.11.26] =
-* bug fixes related to the inline css option
-* changed a few options and added better descriptions to the admin options
+= 3.3.3 [2022.12.11] =
+* custom cache directory fixes
+* upgraded matthiasmullie's PHP Minify to 1.3.70
+* move the viewport meta tag up, before preloading tags
 
-= 2.3.9 [2018.11.24] =
-* there was an error on my end while pushing 2.3.8... this is a version bump
+= 3.3.2 [2022.10.07] =
+* improved compatibility with WP Links and All in One SEO
+* additional constant for custom initialization
+* better output buffer processor
 
-= 2.3.8 [2018.11.24] =
-* removed the dynamic protocol in favour of auto detecting HTTP(s)
-* fixed a bug where some CSS files were being removed with the latest CSS inline method
-* fixed a bug where the wrong file path was being generated for fonts and some static assets (when the plugin or theme, uses relative paths and the Inline CSS option is enabled)
-
-= 2.3.7 [2018.11.24] =
-* bug fixes and performance improvements
-* changed a few "options" location to other tabs
-* changed the "Inline CSS" method to inline each file right separatly, instead of merging it and then inline it (also improves compatibility)
-* added option to exclude JS and CSS files from PSI separatly (will load them Async, so make sure to read the instructions for each)
-* added a dedicated Critical Path CSS for "is_front_page" (more conditionals on the roadmap)
-* renamed some labels to be more explicit regardless of what they do
-
-= 2.3.6 [2018.11.20] =
-* added better header preloader and preconnect headers for css and js files
-* added support to automatically purge the cache enabler plugin
-* added option to reload the cache, while preserving the old static files
-* added better default options after first install
-* added and reorganized some options
-* added a new developers tab
-* removed the YUI compressor option (defaults to PHP Minify)
-* readme and screenshots update
-* tested up to WP 5.0 tag
-
-= 2.3.5 [2018.08.27] =
-* added thinkwithgoogle support for the defer for insights option
-* added HyperCache support, thanks to @erich_k4wp
-* added suport for wp_add_inline_script, thanks to @yuriipavlov
-* fixed a bug where some inlined css was missing if not attached to a parent css file
-* the ignore list now also supports CSS handle names (no JS yet)
-* updated PHP Minify from master on github
-* improved performance for gtmetrix tests
-
-= 2.3.4 [2018.06.30] =
+= 3.3.1 [2022.10.06] =
 * bug fix
 
-= 2.3.3 [2018.06.30] =
-* added a check to prevent creating an empty js or css file
-* added an option to force the CDN option when using the defer for insights option
-* removed the alternative HTML minification method
-* minor performance and bug fixes
+= 3.3.0 [2022.10.06] =
+* fixed minification error on html pre tags
+* fixed an error notice 
+* bumped minimum requirements to PHP 7 and WP 5
 
-= 2.3.2 [2018.06.03] =
-* added some compatibility fixes when merging and minifying JS files
-* added an option to enable an "FVM Purge" button on the admin bar
-* moved all large transients (cached css or js code) to temporary disk files to reduce the database load
+= 3.2.9 [2022.08.30] =
+* legacy code removal and other bugfixes
 
-= 2.3.1 [2018.06.01] =
-* bug fixes and performance tweaks for the "fix page editors" option
+= 3.2.8 [2022.05.30] =
+* ajax bugfix
 
-= 2.3.0 [2018.05.24] =
-* added wp cli support for purge cache (usage: wp fvm purge)
-* added wp cli support for getting the cache size (usage: wp fvm stats)
+= 3.2.7 [2022.05.30] =
+* cloudways & godaddy cache purging fixes
 
-= 2.2.9 [2018.05.23] =
-* fixed several bugs related to notices, css minification and file paths
-* added more pcre.backtrack_limit and pcre.recursion_limit to avoid blank pages on some servers
-* added new option to defer the ignore list for pagespeed
+= 3.2.6 [2022.02.06] =
+* cache purging fixes
 
-= 2.2.8 [2018.01.21] =
-* rollback to 2.2.6 + bugfixes
+= 3.2.5 [2022.02.01] =
+* changed writing the css/js files to WP_Filesystem_Direct with a secondary fallback method
+* fixed a bug when merging css/js can break the site layout if the plugin failed to write the cache file (there will be an html comment on the footer if this happens)
+* renamed a common name class to avoid conflicts with other plugins
 
-= 2.2.7 [2018.02.19] =
-* fixed a bug with the blacklist functionality
-* replaced PHP Minify with JSMin as the default JS minification 
-* replaced PHP Minify with CSSTidy as the default CSS minification
-* replaced PHP Minify with Minify HTML as the default HTML minification
-* moved the intermediary cache from transients to disk files
+= 3.2.4 [2022.01.31] =
+* WP 5.9 / PHP 8 maintenance release
+* changed deferred css/js cache clearing from 24h to 7 days
+* added cache purging support for nginx helper plugin
+* added option to allow processing on specific query strings
+* other bug fixes
 
-= 2.2.6 [2018.01.06] =
-* fixed a bug with html minification on some files that should not be minified
-* fixed a bug with the defer for pagespeed insights
-* updated the default blacklist (delete all entries and save again, to restore)
+= 3.2.3 [2021.05.15] =
+* added auto varnish cache purge for Cloudways
+* switched from WP_Filesystem_Direct() to WP_Filesystem() 
 
-= 2.2.5 [2017.12.18] =
-* fixed a fatal error reported on the support forum
+= 3.2.2 [2021.05.09] =
+* fixed some JS files not being minified
 
-= 2.2.4 [2017.12.17] =
-* added custom cache directory and url support
-* cleaned up some old unused code
-* updated to the latest PHP Minify version
-* added better descriptions and labels for some options
-* added auto exclusion for js and css files when defer for pagespeed is enabled
+= 3.2.1 [2021.05.07] =
+* added support for custom cache location via wp-config.php constants
+* changed the default cache directory to wp-content/cache
 
-= 2.2.3 [2017.12.16] =
-* added robots.txt and ajax requests to the exclusion list
-* added some cdn fixes
-* added a new Pro tab
-* added a global critical path css section
-* added an option to dequeue all css files
-* added an option to load CSS Async with LoadCSS (experimental)
-* added an option to merge external resources together
-* added the possibility to manage the default ignore list (reported files that cause conflicts when merged) 
-* added the possibility to manage the blacklist (files that cannot be merged with normal files)
-* added better descriptions and labels for some options
+= 3.2.0 [2021.05.06] =
+* fixed an issue where some files were not being minified
+* better sourceMappingURL removal during minification
 
-= 2.2.2 [2017.11.12] =
-* fixed the current cdn option box
-* fixed some other minor bugs and notices
-* added option to remove all enqueued google fonts (so you can use your own CSS @fontfaces manually)
-* added font hinting for the "Inline Google Fonts CSS" option, so it looks better on Windows
+= 3.1.9 [2021.05.05] =
+* fixed an issue with some base64 encoded fonts and icons becoming invalid
+* changed @import CSS rules order according to specification (@import rules need to get processed first when minifying)
 
-= 2.2.1 [2017.08.21] =
-* added unicode support to the alternative html minification option
-* improved some options description
+= 3.1.8 [2021.04.30] =
+* fixed missing dynamic css/js urls
+* fixed some relative static assets paths 
+* added auto disabling of FVM on Web Stories (AMP)
 
-= 2.2.0 [2017.08.13] =
-* fixed some debug notices
-* fixed the alternative html minification option
+= 3.1.7 [2021.04.26] =
+* more php notices fixes
 
-= 2.1.9 [2017.08.11] =
-* fixed a development bug
+= 3.1.6 [2021.04.25] =
+* php notices fixes
+* better http2 support
 
-= 2.1.8 [2017.08.11] =
-* fixed the html minification not working
-* added support for the cdn enabler plugin (force http or https method)
+= 3.1.5 [2021.04.24] =
+* added support for WP Cloudflare Super Page Cache plugin
+* fixed support for LiteSpeed Cache purging
+* changed the cache directory to the uploads directory (WP_Filesystem_Direct)
+* deprecated CSS and JS merging as this is no longer recommended for HTTP/2 servers
+* stop removing RSS feeds references on the header cleanup option
+* changed some descriptions and updated the HELP section
+* other bug fixes
 
-= 2.1.7 [2017.07.17] =
-* improved html minification speed and response time to the first byte
-* fixed a random bug with the html minification library on large html pages (white pages)
-* added support for the "Nginx Cache" plugin purge, by Till Krüss
+= 3.1.4 [2021.01.11] =
+* disable FVM update routines when a user runs wp-cli commands outside of the root directory
+* database routine improvements for users with custom table prefixes
 
-= 2.1.6 [2017.07.17] =
-* fixed a php notice in debug mode
-* children styles (added with wp_add_inline_style) are now kept in order and merged together in place
-* added faqs for possible "visual composer" issues
+= 3.1.3 [2021.01.10] =
+* Link preload headers improvement
 
-= 2.1.5 [2017.07.17] =
-* css bug fixes and performance improvements
-* added support for auto purging on WP Engine
+= 3.1.2 [2021.01.09] =
+* Fixed a PHP notice on wp-admin
 
-= 2.1.4 [2017.07.14] =
-* added compatibility with WP Engine.com and other providers that use a CNAME with their own subdomain
+= 3.1.1 [2021.01.09] =
+* Added option to disable preload header
+* Added support for the preload header importance attribute
+* Better default settings for new installs
+* Other bug fixes related to UTF-8 decoding and merging
 
-= 2.1.3 [2017.07.11] =
-* updated PHP Minify for better compatibility
-* added an alternative mode for html minification (because PHP Minify sometimes breaks things)
-* css bug fixes and performance improvements
+= 3.1.0 [2021.01.06] =
+* Added support for WP AMP by custom4web
+* Fix for <code> and <pre> tags being minified
+* Better HTML document detection for minification
 
-= 2.1.2 [2017.06.27] =
-* fixed another error notice when debug mode is on
+= 3.0.9 [2021.01.04] =
+* Added page caching purging support for Hummingbird and WP-Optimize from FVM
 
-= 2.1.1 [2017.06.24] =
-* fixed an error notice
+= 3.0.8 [2021.01.02] =
+* Improved compatibility and better detection of dynamic CSS and JS files (files generated with PHP instead of being static)
 
-= 2.1.0 [2017.06.21] =
-* some performance improvements
+= 3.0.7 [2021.01.02] =
+* Fixed incorrect paths on subdirectory sites (inside merged CSS files)
 
-= 2.0.9 [2017.06.01] =
-* several bug and compatibility fixes
+= 3.0.6 [2021.01.01] =
+* Adjusted the HELP tab settings
+* Improved compatibility with CSS merging on WP Bakery
 
-= 2.0.8 [2017.05.28] =
-* fixed a notice alert on php for undefined function
+= 3.0.5 [2021.01.01] =
+* Fixed the cache paths on Windows Servers
+* Fixed incorrect file paths on subdirectory sites
+* Fixed the CDN integration not replacing the domain name
+* Fixed CSS font-display replacements
 
-= 2.0.7 [2017.05.28] =
-* added support for auto purging of LiteSpeed Cache 
-* added support for auto purging on Godaddy Managed WordPress Hosting
-* added the ie only blacklist, wich doesn't split merged files anymore, like the ignore list does
-* added auto updates for the default ignore list and blacklist from our api once every 24 hours
-* added cdn rewrite support for generated css and js files only
-* removed url protocol rewrites and set default to dynamic "//" protocols
-* updated the faqs
+= 3.0.4 [2020.12.31] =
+* Improved compatibility on CSS merging with optimole and similar services
+* Fixed some PHP notices and other minor issues
 
-= 2.0.6 [2017.05.22] =
-* added a "Troubleshooting" option to fix frontend editors for admin and editor level users
-* updated the faqs
+= 3.0.3 [2020.12.29] =
+* Prevent minification on XML content that do not trigger WordPress conditionals
+* Added support for critical path positioning before the CSS files when Async mode is enabled
+* Minor bugfixes
 
-= 2.0.5 [2017.05.15] =
-* fixed preserving the SVG namespace definition "http://www.w3.org/2000/svg" used on Bootstrap 4
-* added some exclusions for Thrive and Visual Composer frontend preview and editors
+= 3.0.2 [2020.12.29] =
+* Added option to preserve settings on uninstall
+* Added option to inline all CSS (merging is still the recommended method)
+* Added option to force HTTPS on the generated cache file urls
+* Added an ignore list to the JS section (also imported from FVM 2 settings)
+* Improved compatibility with FVM 2 (you still need to specify what JS paths you want to merge)
+* Preserve the old FVM 2 settings on the database (will be removed on version 3.2)
 
-= 2.0.4 [2017.05.15] =
-* improved compatibility with Windows operating systems
+= 3.0.1 [2020.12.27] =
+* Added initial translation support under the "fast-velocity-minify" text domain.
 
-= 2.0.3 [2017.05.15] =
-* fixed an "undefined" notice
+= 3.0.0 [2020.12.26] =
+* New version has been remade from scratch
+* JS Optimization is disabled by default and requires manual configuration
+* Third party scripts can now be delayed until user interaction, to improve the initial loading time
 
-= 2.0.2 [2017.05.14] =
-* improved compatibility on JS merging and minification
+= 2.8.9 [2020.06.23] =
+* new filter for wp hide compatibility
 
-= 2.0.1 [2017.05.11] =
-* fixed missing file that caused some errors on new installs 
+= 2.8.8 [2020.05.01] =
+* bug fixes for woocommerce, which could result in 403 errors when adding to cart under certain cases
+
+= 2.8.7 [2020.04.30] =
+* fixed the sourceMappingURL removal regex introduced on 2.8.3 for js files and css files
+
+= 2.8.6 [2020.04.30] =
+* fixed an error notice on php
+
+= 2.8.5 [2020.04.30] =
+* bug fixes and some more minification default exclusions
+
+= 2.8.4 [2020.04.24] =
+* added frontend-builder-global-functions.js to the list of minification exclusions, but allowing merging (Divi Compatibility)
+
+= 2.8.3 [2020.04.17] =
+* Removed some options out of the autoload wp_option to avoid getting cached on the alloptions when using OPCache 
+* Removed the CDN purge option for WP Engine (not needed since FVM automatically does cache busting)
+* Added support for Kinsta, Pagely, Pressidum, Savvii and Pantheon
+* Better sourcemaps regex removal from minified css and js files
+
+= 2.8.2 [2020.04.13] =
+* Skip changing clip-path: url(#some-svg); to absolute urls during css minification
+* Added a better cronjob duplicate cleanup task, when uninstalling the plugin
+
+= 2.8.1 [2020.03.15] =
+* added filter for the fvm_get_url function
+
+= 2.8.0 [2020.03.10] =
+* improved compatibility with Thrive Architect editor
+* improved compatibility with Divi theme
+
+= 2.7.9 [2020.02.18] =
+* changed cache file names hash to longer names to avoid colisions on elementor plugin
+
+= 2.7.8 [2020.02.06] =
+* updated PHP Minify with full support for PHP 7.4
+* added try, catch wrappers for merged javacript files with console log errors (instead of letting the browser stop execution on error)
+* improved compatibility with windows servers
+* improved compatibility for font paths with some themes
+
+= 2.7.7 [2019.10.15] =
+* added a capability check on the status page ajax request, which could show the cache file path when debug mode is enabled to subscribers
+
+= 2.7.6 [2019.10.10] =
+* bug fix release
+
+= 2.7.5 [2019.10.09] =
+* added support to "after" scripts added via wp_add_inline_script 
+
+= 2.7.4 [2019.08.18] =
+* change to open JS/CSS files suspected of having PHP code via HTTP request, instead of reading the file directly from disk
+
+= 2.7.3 [2019.07.29] =
+* Beaver Builder compatibility fix
+
+= 2.7.2 [2019.07.29] =
+* fixed a PHP notice when WP_DEBUG mode is enabled on wordpress
+* small improvements on google fonts merging
+
+= 2.7.1 [2019.07.27] =
+* fixed an AMP validation javascript error
+
+= 2.7.0 [2019.07.23] =
+* some score fixes when deferring to pagespeed is enabled
+
+= 2.6.9 [2019.07.15] =
+* custom cache path permissions fix (thanks to @fariazz)
+
+= 2.6.8 [2019.07.06] =
+* header preload fixes (thanks to @vandreev)
+
+= 2.6.7 [2019.07.04] =
+* added cache purging support for the swift cache plugin
+* changed cache directory to the uploads directory for compatibility reasons
+* better cache purging checks
+
+= 2.6.6 [2019.06.20] =
+* cache purging bug fixes
+* php notice fixes
+
+= 2.6.5 [2019.05.04] =
+* fixed cache purging on Hyper Cache plugin
+* removed support for WPFC (plugin author implemented a notice stating that FVM is incompatible with WPFC)
+* improved the filtering engine for pagespeed insights on desktop
+
+= 2.6.4 [2019.03.31] =
+* fixed subdirectories permissions
+
+= 2.6.3 [2019.03.30] =
+* fixed another minor PHP notice
+
+= 2.6.2 [2019.03.27] =
+* fixed a PHP notice on urls with query strings that include arrays on keys or values
+
+= 2.6.1 [2019.03.26] =
+* fixed compatibility with the latest elementor plugin
+* fixed adding duplicate cron jobs + existing duplicate cronjobs cleanup
+* fixed duplicate "cache/cache" directory path
+* changed the minimum PHP requirements to PHP 5.5
+
+= 2.6.0 [2019.03.02] =
+* fixed cache purging with the hypercache plugin
+* fixed a bug with inline scripts and styles not showing up if there is no url for the enqueued handle
+* changed the cache directory from the wp-content/uploads to wp-content/cache
+* improved compatibility with page cache plugins and servers (purging FVM without purging the page cache should be fine now)
+* added a daily cronjob, to delete public invalid cache files that are older than 3 months (your page cache should expire before this)
 
 = 2.0.0 [2017.05.11] =
-* moved the css and js merging base code back to 1.4.3 because it was better for compatibility
-* removed the font awesome optimization tweaks because people have multiple versions and requirements (but duplicate css and js files are always removed)
-* added all usable improvements and features up to 1.5.2, except for the "Defer CSS" and "Critical Path" features (will consider for the future)
-* added info to the FAQ's about our internal blacklist for known CSS or JS files that are always ignored by the plugin 
-* changed the way CSS and JS files are fetched and merged to make use of the new improvements that were supposed to be on 1.4.4+
-* changed the advanced settings tab back to the settings page for quicker selection of options by the advanced users
-* changed the cache purging option to also delete our plugin transients via the API, rather than just let them expire
-* changed the "Inline all CSS" option into header and footer separately
+* version 2.x branch release
 
 = 1.0 [2016.06.19] =
 * Initial Release

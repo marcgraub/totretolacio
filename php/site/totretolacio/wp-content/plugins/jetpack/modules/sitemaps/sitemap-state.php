@@ -1,18 +1,18 @@
-<?php
+<?php // phpcs:ignore WordPress.Files.FileName.InvalidClassFileName
 /**
  * Abstract sitemap generation state class.
  *
- * @package Jetpack
+ * @package automattic/jetpack
  * @since 4.8.0
  * @author Automattic
  */
 
 /* Include standard constants and librarian. */
-require_once dirname( __FILE__ ) . '/sitemap-constants.php';
-require_once dirname( __FILE__ ) . '/sitemap-librarian.php';
+require_once __DIR__ . '/sitemap-constants.php';
+require_once __DIR__ . '/sitemap-librarian.php';
 
 if ( defined( 'WP_DEBUG' ) && ( true === WP_DEBUG ) ) {
-	require_once dirname( __FILE__ ) . '/sitemap-logger.php';
+	require_once __DIR__ . '/sitemap-logger.php';
 }
 
 /**
@@ -140,5 +140,4 @@ class Jetpack_Sitemap_State {
 		delete_transient( 'jetpack-sitemap-state-lock' );
 		delete_option( 'jetpack-sitemap-state' );
 	}
-
 }

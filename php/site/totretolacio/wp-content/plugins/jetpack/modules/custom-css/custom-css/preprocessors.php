@@ -1,4 +1,4 @@
-<?php
+<?php // phpcs:ignore WordPress.Files.FileName.InvalidClassFileName
 
 /**
  * CSS preprocessor registration.
@@ -15,16 +15,15 @@
  * @param array $preprocessors The list of preprocessors added thus far.
  * @return array
  */
-
 function jetpack_register_css_preprocessors( $preprocessors ) {
 	$preprocessors['less'] = array(
-		'name' => 'LESS',
-		'callback' => 'jetpack_less_css_preprocess'
+		'name'     => 'LESS',
+		'callback' => 'jetpack_less_css_preprocess',
 	);
 
 	$preprocessors['sass'] = array(
-		'name' => 'Sass (SCSS Syntax)',
-		'callback' => 'jetpack_sass_css_preprocess'
+		'name'     => 'Sass (SCSS Syntax)',
+		'callback' => 'jetpack_sass_css_preprocess',
 	);
 
 	return $preprocessors;
@@ -32,10 +31,18 @@ function jetpack_register_css_preprocessors( $preprocessors ) {
 
 add_filter( 'jetpack_custom_css_preprocessors', 'jetpack_register_css_preprocessors' );
 
+/**
+ * Compile less prepocessors?
+ *
+ * @param string $less - less.
+ */
 function jetpack_less_css_preprocess( $less ) {
-	require_once( dirname( __FILE__ ) . '/preprocessors/lessc.inc.php' );
+	require_once __DIR__ . '/preprocessors/lessc.inc.php';
 
 	$compiler = new lessc();
+
+	// Don't try to load from the filesystem.
+	$compiler->setImportDir( array() );
 
 	try {
 		return $compiler->compile( $less );
@@ -44,14 +51,19 @@ function jetpack_less_css_preprocess( $less ) {
 	}
 }
 
+/**
+ * Compile sass prepocessors?
+ *
+ * @param string $sass - sass.
+ */
 function jetpack_sass_css_preprocess( $sass ) {
-	require_once( dirname( __FILE__ ) . '/preprocessors/scss.inc.php' );
+	$compiler = new ScssPhp\ScssPhp\Compiler();
 
-	$compiler = new scssc();
-	$compiler->setFormatter( 'scss_formatter' );
+	// Don't try to load from the filesystem.
+	$compiler->setImportPaths( array() );
 
 	try {
-		return $compiler->compile( $sass );
+		return $compiler->compileString( $sass )->getCss();
 	} catch ( Exception $e ) {
 		return $sass;
 	}

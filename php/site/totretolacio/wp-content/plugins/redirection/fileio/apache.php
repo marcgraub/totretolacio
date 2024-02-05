@@ -4,10 +4,8 @@ class Red_Apache_File extends Red_FileIO {
 	public function force_download() {
 		parent::force_download();
 
-		$filename = 'redirection-' . date_i18n( get_option( 'date_format' ) ) . '.htaccess';
-
 		header( 'Content-Type: application/octet-stream' );
-		header( 'Content-Disposition: attachment; filename="' . $filename . '"' );
+		header( 'Content-Disposition: attachment; filename="' . $this->export_filename( 'htaccess' ) . '"' );
 	}
 
 	public function get_data( array $items, array $groups ) {
@@ -110,20 +108,27 @@ class Red_Apache_File extends Red_FileIO {
 
 	private function decode_url( $url ) {
 		$url = rawurldecode( $url );
-		$url = str_replace( '\\.', '.', $url );
+
+		// Replace quoted slashes
+		$url = preg_replace( '@\\\/@', '/', $url );
+
+		// Ensure escaped '.' is still escaped
+		$url = preg_replace( '@\\\\.@', '\\\\.', $url );
 		return $url;
 	}
 
 	private function is_str_regex( $url ) {
 		$regex  = '()[]$^?+.';
 		$escape = false;
+		$len = strlen( $url );
 
-		for ( $x = 0; $x < strlen( $url ); $x++ ) {
+		for ( $x = 0; $x < $len; $x++ ) {
 			$escape = false;
+			$char = substr( $url, $x, 1 );
 
-			if ( $url{$x} === '\\' ) {
+			if ( $char === '\\' ) {
 				$escape = true;
-			} elseif ( strpos( $regex, $url{$x} ) !== false && ! $escape ) {
+			} elseif ( strpos( $regex, $char ) !== false && ! $escape ) {
 				return true;
 			}
 		}
@@ -145,15 +150,17 @@ class Red_Apache_File extends Red_FileIO {
 	}
 
 	private function regex_url( $url ) {
+		$url = $this->decode_url( $url );
+
 		if ( $this->is_str_regex( $url ) ) {
 			$tmp = ltrim( $url, '^' );
 			$tmp = rtrim( $tmp, '$' );
 
-			if ( $this->is_str_regex( $tmp ) === false ) {
-				return '/' . $this->decode_url( $tmp );
+			if ( $this->is_str_regex( $tmp ) ) {
+				return '^/' . ltrim( $tmp, '/' );
 			}
 
-			return '/' . $this->decode_url( $url );
+			return '/' . ltrim( $tmp, '/' );
 		}
 
 		return $this->decode_url( $url );
@@ -162,13 +169,21 @@ class Red_Apache_File extends Red_FileIO {
 	private function get_code( $code ) {
 		if ( strpos( $code, '301' ) !== false || stripos( $code, 'permanent' ) !== false ) {
 			return 301;
-		} elseif ( strpos( $code, '302' ) !== false ) {
+		}
+
+		if ( strpos( $code, '302' ) !== false ) {
 			return 302;
-		} elseif ( strpos( $code, '307' ) !== false || stripos( $code, 'seeother' ) !== false ) {
+		}
+
+		if ( strpos( $code, '307' ) !== false || stripos( $code, 'seeother' ) !== false ) {
 			return 307;
-		} elseif ( strpos( $code, '404' ) !== false || stripos( $code, 'forbidden' ) !== false || strpos( $code, 'F' ) !== false ) {
+		}
+
+		if ( strpos( $code, '404' ) !== false || stripos( $code, 'forbidden' ) !== false || strpos( $code, 'F' ) !== false ) {
 			return 404;
-		} elseif ( strpos( $code, '410' ) !== false || stripos( $code, 'gone' ) !== false || strpos( $code, 'G' ) !== false ) {
+		}
+
+		if ( strpos( $code, '410' ) !== false || stripos( $code, 'gone' ) !== false || strpos( $code, 'G' ) !== false ) {
 			return 410;
 		}
 

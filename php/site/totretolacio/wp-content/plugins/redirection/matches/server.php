@@ -1,9 +1,17 @@
 <?php
 
+/**
+ * Match the server URL. Used to match requests for another domain.
+ */
 class Server_Match extends Red_Match {
 	use FromNotFrom_Match;
 
-	public $server;
+	/**
+	 * Server URL.
+	 *
+	 * @var String
+	 */
+	public $server = '';
 
 	public function name() {
 		return __( 'URL and server', 'redirection' );
@@ -29,16 +37,10 @@ class Server_Match extends Red_Match {
 		return '';
 	}
 
-	public function get_target( $url, $matched_url, $regex ) {
+	public function is_match( $url ) {
 		$server = wp_parse_url( $this->server, PHP_URL_HOST );
-		$matched = $server === Redirection_Request::get_server_name();
-		$target = $this->get_matched_target( $matched );
 
-		if ( $regex && $target ) {
-			return $this->get_target_regex_url( $matched_url, $target, $url );
-		}
-
-		return $target;
+		return $server === Redirection_Request::get_server_name();
 	}
 
 	public function get_data() {
@@ -47,8 +49,14 @@ class Server_Match extends Red_Match {
 		), $this->get_from_data() );
 	}
 
+	/**
+	 * Load the match data into this instance.
+	 *
+	 * @param string $values Match values, as read from the database (plain text or serialized PHP).
+	 * @return void
+	 */
 	public function load( $values ) {
 		$values = $this->load_data( $values );
-		$this->server = $values['server'];
+		$this->server = isset( $values['server'] ) ? $values['server'] : '';
 	}
 }

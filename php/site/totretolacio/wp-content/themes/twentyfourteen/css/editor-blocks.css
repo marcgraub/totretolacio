@@ -1,6 +1,6 @@
 /*
 Theme Name: Twenty Fourteen
-Description: Used to style Gutenberg Blocks in the editor.
+Description: Used to style blocks in the editor.
 */
 
 /*--------------------------------------------------------------
@@ -12,6 +12,7 @@ Description: Used to style Gutenberg Blocks in the editor.
 4.0 Blocks - Formatting
 5.0 Blocks - Layout Elements
 6.0 Blocks - Widgets
+7.0 Blocks - Colors
 --------------------------------------------------------------*/
 
 /*--------------------------------------------------------------
@@ -20,12 +21,12 @@ Description: Used to style Gutenberg Blocks in the editor.
 
 .edit-post-visual-editor .editor-block-list__block,
 .edit-post-visual-editor .editor-block-list__block p,
-.editor-default-block-appender input[type="text"].editor-default-block-appender__content {
+.editor-default-block-appender textarea.editor-default-block-appender__content {
 	font-size: 16px;
 	line-height: 1.5;
 }
 
-.editor-default-block-appender input[type="text"].editor-default-block-appender__content {
+.editor-default-block-appender textarea.editor-default-block-appender__content {
 	font-family: Lato, sans-serif;
 }
 
@@ -96,11 +97,7 @@ Description: Used to style Gutenberg Blocks in the editor.
 .block-library-list ul,
 .edit-post-visual-editor ol,
 .editor-block-list__block ol,
-.block-library-list ol {
-	margin: 0 0 1.6em 1.3333em;
-	padding: 0;
-}
-
+.block-library-list ol,
 .block-library-list .editor-rich-text__tinymce {
 	padding: 0;
 }
@@ -131,14 +128,22 @@ Description: Used to style Gutenberg Blocks in the editor.
 	margin-bottom: 0;
 }
 
-.rtl .edit-post-visual-editor ul:not(.wp-block-gallery),
-.rtl .editor-block-list__block ul:not(.wp-block-gallery),
-.rtl .block-library-list ul,
-.rtl .edit-post-visual-editor ol,
-.rtl .editor-block-list__block ol,
-.rtl .block-library-list ol {
+.rtl .editor-styles-wrapper ul ul,
+.rtl .editor-styles-wrapper ol ol,
+.rtl .editor-styles-wrapper ul ol,
+.rtl .editor-styles-wrapper ol ul {
 	margin-left: 0;
-	margin-right: 1.3333em;
+	margin-right: 20px;
+}
+
+.wp-block-freeform.block-library-rich-text__tinymce ul,
+.wp-block-freeform.block-library-rich-text__tinymce ol {
+	padding-left: 20px;
+}
+
+.rtl .wp-block-freeform.block-library-rich-text__tinymce ul,
+.rtl .wp-block-freeform.block-library-rich-text__tinymce ol {
+	padding: 0;
 }
 
 /* Code */
@@ -331,7 +336,7 @@ p.has-drop-cap:not(:focus)::first-letter {
 	color: #fff;
 	font-size: 12px;
 	font-weight: 700;
-	line-height: normal;
+	line-height: 1.25;
 	padding: 10px 30px 11px;
 	text-transform: uppercase;
 	vertical-align: bottom;
@@ -345,18 +350,25 @@ p.has-drop-cap:not(:focus)::first-letter {
 4.0 Blocks - Formatting
 --------------------------------------------------------------*/
 
-/* Code */
+/* Code (Added specficity required to override TinyMCE styles) */
 
-.wp-block-code {
+.editor-styles-wrapper .wp-block-code {
 	border: 0;
 	padding: 0;
+}
+
+.editor-styles-wrapper .wp-block-code code {
+	font-size: inherit;
 }
 
 /* Pullquote */
 
 .wp-block-pullquote {
-	border: 0;
 	margin: 0;
+}
+
+.editor-styles-wrapper .wp-block-pullquote {
+	border: 0;
 }
 
 .wp-block-pullquote .wp-block-pullquote__citation {
@@ -365,6 +377,15 @@ p.has-drop-cap:not(:focus)::first-letter {
 	font-weight: 400;
 	margin-top: 0;
 	text-transform: none;
+}
+
+.wp-block-pullquote.has-text-color blockquote,
+.wp-block-pullquote.has-background blockquote,
+.has-background .wp-block-pullquote blockquote,
+.wp-block-pullquote.has-text-color cite,
+.has-background .wp-block-pullquote cite,
+.has-text-color .wp-block-pullquote__citation {
+	color: inherit;
 }
 
 .wp-block-pullquote.alignleft blockquote > .editor-rich-text p,
@@ -382,6 +403,12 @@ p.has-drop-cap:not(:focus)::first-letter {
 	}
 }
 
+/* Verse */
+
+.editor-styles-wrapper .wp-block-verse {
+	font-family: inherit;
+}
+
 /*--------------------------------------------------------------
 5.0 Blocks - Layout Elements
 --------------------------------------------------------------*/
@@ -389,15 +416,26 @@ p.has-drop-cap:not(:focus)::first-letter {
 /* Buttons */
 
 .wp-block-button .wp-block-button__link {
-	background-color: #24890d;
-	border: 0;
-	border-radius: 2px;
-	color: #fff;
 	font-size: 12px;
 	font-weight: 700;
+	line-height: 1.25;
 	padding: 10px 30px 11px;
 	text-transform: uppercase;
 	vertical-align: bottom;
+}
+
+.wp-block-buttons[style*="text-transform"] .wp-block-button__link,
+.wp-block-button[style*="text-transform"] .wp-block-button__link {
+	text-transform: inherit;
+}
+
+.wp-block-button__link {
+	background-color: #24890d;
+	color: #fff;
+}
+
+.is-style-outline .wp-block-button__link {
+	color: #24890d;
 }
 
 .editor-block-list__block .wp-block-button .mce-content-body {
@@ -476,4 +514,56 @@ p.has-drop-cap:not(:focus)::first-letter {
 	list-style: none;
 	margin-left: 0;
 	margin-right: 0;
+}
+
+/*--------------------------------------------------------------
+7.0 Blocks - Colors
+--------------------------------------------------------------*/
+
+:root .editor-styles-wrapper .has-green-color {
+	color: #24890d;
+}
+
+:root .editor-styles-wrapper .has-green-background-color {
+	background-color: #24890d;
+}
+
+:root .editor-styles-wrapper .has-black-color {
+	color: #000;
+}
+
+:root .editor-styles-wrapper .has-black-background-color {
+	background-color: #000;
+}
+
+:root .editor-styles-wrapper .has-dark-gray-color {
+	color: #2b2b2b;
+}
+
+:root .editor-styles-wrapper .has-dark-gray-background-color {
+	background-color: #2b2b2b;
+}
+
+:root .editor-styles-wrapper .has-medium-gray-color {
+	color: #767676;
+}
+
+:root .editor-styles-wrapper .has-medium-gray-background-color {
+	background-color: #767676;
+}
+
+:root .editor-styles-wrapper .has-light-gray-color {
+	color: #f5f5f5;
+}
+
+:root .editor-styles-wrapper .has-light-gray-background-color {
+	background-color: #f5f5f5;
+}
+
+:root .editor-styles-wrapper .has-white-color {
+	color: #fff;
+}
+
+:root .editor-styles-wrapper .has-white-background-color {
+	background-color: #fff;
 }

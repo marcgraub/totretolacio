@@ -412,7 +412,6 @@ window.eml = window.eml || { l10n: {} };
                 admin_filter : 'admin_filter',
                 media_uploader_filter : 'media_uploader_filter',
                 media_popup_taxonomy_edit : 'media_popup_taxonomy_edit',
-                show_in_nav_menus : 'show_in_nav_menus',
                 sort : 'sort',
                 show_in_rest : 'show_in_rest',
                 rewrite : [ 'slug', 'with_front' ]
@@ -496,16 +495,21 @@ window.eml = window.eml || { l10n: {} };
 
 
 
-    // synchronize parent terms to media items (PRO)
     $( document ).on( 'click', '.eml-button-synchronize-terms', function( event ) {
 
         var $el, post_type, taxonomy;
 
 
+        $el = $( event.target );
+
+        if ( $el.hasClass( 'disabled' ) ) {
+            event.preventDefault();
+            return false;
+        }
+
+
         emlConfirmDialog( eml.l10n.sync_warning_title, eml.l10n.sync_warning_text, eml.l10n.sync_warning_yes, eml.l10n.sync_warning_no, 'button button-primary' )
         .done( function() {
-
-            $el = $( event.target );
 
             post_type = $el.attr( 'data-post-type' );
             taxonomy = $el.attr( 'data-taxonomy' );
@@ -524,6 +528,11 @@ window.eml = window.eml || { l10n: {} };
         .fail(function() {
             return false;
         });
+    });
+
+
+    $( document ).on( 'click', 'input[readonly], .disabled .submit input.button', function( event ) {
+        event.preventDefault();
     });
 
 })( jQuery, _ );

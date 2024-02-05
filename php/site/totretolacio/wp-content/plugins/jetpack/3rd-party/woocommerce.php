@@ -1,9 +1,17 @@
 <?php
 /**
  * This file contains compatibility functions for WooCommerce to improve Jetpack feature support.
+ *
+ * @package automattic/jetpack
  */
+
 add_action( 'woocommerce_init', 'jetpack_woocommerce_integration' );
 
+/**
+ * Loads JP+WC integration.
+ *
+ * Fires on `woocommerce_init` hook
+ */
 function jetpack_woocommerce_integration() {
 	/**
 	 * Double check WooCommerce exists - unlikely to fail due to the hook being used but better safe than sorry.
@@ -15,6 +23,12 @@ function jetpack_woocommerce_integration() {
 	add_action( 'woocommerce_share', 'jetpack_woocommerce_social_share_icons', 10 );
 
 	/**
+	 * Add product post type to Jetpack sitemap while skipping hidden products.
+	 */
+	add_filter( 'jetpack_sitemap_post_types', 'jetpack_woocommerce_add_to_sitemap' );
+	add_filter( 'jetpack_sitemap_skip_post', 'jetpack_woocommerce_skip_hidden_products_in_sitemap', 10, 2 );
+
+	/**
 	 * Wrap in function exists check since this requires WooCommerce 3.3+.
 	 */
 	if ( function_exists( 'wc_get_default_products_per_row' ) ) {
@@ -23,14 +37,41 @@ function jetpack_woocommerce_integration() {
 	}
 }
 
-/*
+/**
+ * Add product post type to sitemap if Woocommerce is present.
+ *
+ * @param array $post_types Array of post types included in sitemap.
+ */
+function jetpack_woocommerce_add_to_sitemap( $post_types ) {
+	$post_types[] = 'product';
+
+	return $post_types;
+}
+
+/**
+ * Skip hidden products when generating the sitemap.
+ *
+ * @param bool    $skip Whether to skip the post.
+ * @param WP_Post $post The post object.
+ */
+function jetpack_woocommerce_skip_hidden_products_in_sitemap( $skip, $post ) {
+	if ( $post !== null && $post->post_type === 'product' ) {
+		$product = wc_get_product( $post->ID );
+		if ( $product ) {
+			$skip = ! $product->is_visible();
+		}
+	}
+	return $skip;
+}
+
+/**
  * Make sure the social sharing icons show up under the product's short description
  */
 function jetpack_woocommerce_social_share_icons() {
 	if ( function_exists( 'sharing_display' ) ) {
 		remove_filter( 'the_content', 'sharing_display', 19 );
 		remove_filter( 'the_excerpt', 'sharing_display', 19 );
-		echo sharing_display();
+		sharing_display( '', true );
 	}
 }
 
@@ -57,7 +98,7 @@ add_action( 'loop_start', 'jetpack_woocommerce_remove_share' );
 /**
  * Add a callback for WooCommerce product rendering in infinite scroll.
  *
- * @param array $callbacks
+ * @param array $callbacks Array of render callpacks for IS.
  * @return array
  */
 function jetpack_woocommerce_infinite_scroll_render_callback( $callbacks ) {
@@ -87,19 +128,9 @@ function jetpack_woocommerce_infinite_scroll_render() {
  * Basic styling when infinite scroll is active only.
  */
 function jetpack_woocommerce_infinite_scroll_style() {
-	$custom_css = "
+	$custom_css = '
 	.infinite-scroll .woocommerce-pagination {
 		display: none;
-	}";
+	}';
 	wp_add_inline_style( 'woocommerce-layout', $custom_css );
 }
-
-function jetpack_woocommerce_lazy_images_compat() {
-	wp_add_inline_script( 'wc-cart-fragments', "
-		jQuery( 'body' ).bind( 'wc_fragments_refreshed', function() {
-			jQuery( 'body' ).trigger( 'jetpack-lazy-images-load' );
-		} );
-	" );
-}
-
-add_action( 'wp_enqueue_scripts', 'jetpack_woocommerce_lazy_images_compat', 11 );

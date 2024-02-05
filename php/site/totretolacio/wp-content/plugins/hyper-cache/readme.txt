@@ -1,21 +1,27 @@
 === Hyper Cache ===
-Tags: cache,performance,staticizer,apache,htaccess,tuning,speed,bandwidth,optimization,tidy,gzip,compression,server load,boost
-Requires at least: 3.9
-Tested up to: 4.9.6
-Stable tag: 3.3.7
+Tags: cache,performance,staticizer,apache,htaccess,tuning,speed,bandwidth,optimization
+Tested up to: 6.3.2
+Stable tag: 3.4.2
 Donate link: https://www.satollo.net/donations
 Contributors: satollo
+License: GPLv2 or later
+License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
 Hyper Cache is a performant and easy to configure cache system for WordPress.
 
 == Description ==
 
-Hyper Cache is a cache plugin specifically written to get the maximum
-speed for your WordPress blog. It can be used in low resources hosting as well
-on high end servers.
+Hyper Cache is a cache plugin specifically written to get the maximum speed for your WordPress blog.
 
-Hyper Cache is **purely PHP** and works on **every blog**: no complex configurations are needed
-and when you deactivate it no stale settings are left around.
+It can be used in low resources hosting as well on high end servers.
+
+Hyper Cache is **purely PHP** and works on **every blog**: no complex configurations are needed and when you deactivate it no stale settings are left around.
+
+NOTE
+
+Mobile detection server side and serving different content to mobile and desktop device is now obsolete.
+Every modern WP theme deals with mobile/desktop contexts using the media queries, progressive enhancement and so on.
+So I don't see the need to keep the mobile/desktop cache separation and all the overhead in the plugin. The feature will be removed as version 3.5.
 
 Short list of features:
 
@@ -36,14 +42,14 @@ Short list of features:
 
 More can be read on the [Hyper Cache official page](https://www.satollo.net/plugins/hyper-cache).
 
-You can further optimize the blog installing [Autoptimize](https://wordpress.org/plugins/autoptimize/)
-which cleans up the HTML, minifies and concatenates CSS and JavaScript.
+You can further optimize the blog installing [Autoptimize](https://wordpress.org/plugins/autoptimize/) which cleans up the HTML, minifies and concatenates CSS and JavaScript.
 
 Other plugins by Stefano Lissa:
 
 * [Newsletter](https://www.thenewsletterplugin.com)
 * [Header and Footer](https://www.satollo.net/plugins/header-footer)
 * [Include Me](https://www.satollo.net/plugins/include-me)
+* [Thumbnails](http://www.satollo.net/plugins/thumbnails)
 
 == Installation ==
 
@@ -65,6 +71,30 @@ the [Hyper Cache official forum](https://www.satollo.net/forums/forum/hyper-cach
 3. Mobile devices configuration
 
 == Changelog ==
+
+= 3.4.2 =
+
+* Fixed fatal error
+
+= 3.4.1 =
+
+* Compatibility check with WP 6.3.2
+
+= 3.4.0 =
+
+* Compatibility check with WP 5.8
+* Fixed some plugin and readme headers
+* Preparing to remove the mobile server side detection
+* Setting the minimum WP version to 4.6, translations loading are now fully managed by WP
+
+= 3.3.9 =
+
+* Added clean up of blog posts page (thanks Erich)
+
+= 3.3.8 =
+
+* Small improvement on 404 caching
+* General compatibility check with latest WP
 
 = 3.3.7 =
 

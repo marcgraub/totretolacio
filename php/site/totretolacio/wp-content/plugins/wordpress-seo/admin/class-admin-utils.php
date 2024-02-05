@@ -67,18 +67,16 @@ class WPSEO_Admin_Utils {
 		);
 	}
 
-	/* ********************* DEPRECATED METHODS ********************* */
-
 	/**
-	 * Determines whether or not the user has an invalid version of PHP installed.
+	 * Gets a visually hidden accessible message for links that open in a new browser tab.
 	 *
-	 * @deprecated 8.1
-	 * @codeCoverageIgnore
-	 *
-	 * @return bool Whether or not PHP 5.2 or lower is installed.
+	 * @return string The visually hidden accessible message.
 	 */
-	public static function is_supported_php_version_installed() {
-		// Intentionally left blank.
-		return true;
+	public static function get_new_tab_message() {
+		return sprintf(
+			'<span class="screen-reader-text">%s</span>',
+			/* translators: Hidden accessibility text. */
+			esc_html__( '(Opens in a new browser tab)', 'wordpress-seo' )
+		);
 	}
 }

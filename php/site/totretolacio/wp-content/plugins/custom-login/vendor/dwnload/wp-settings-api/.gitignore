@@ -1,0 +1,9 @@
+.DS_Store
+/.idea
+tests/results/
+node_modules/
+tests/clover.xml
+/wordpress
+/vendor
+composer.lock
+phpcs-report.xml

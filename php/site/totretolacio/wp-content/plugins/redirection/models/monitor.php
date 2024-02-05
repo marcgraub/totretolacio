@@ -4,8 +4,9 @@ class Red_Monitor {
 	private $monitor_group_id;
 	private $updated_posts = array();
 	private $monitor_types = array();
+	private $associated = '';
 
-	function __construct( $options ) {
+	public function __construct( $options ) {
 		$this->monitor_types = apply_filters( 'redirection_monitor_types', isset( $options['monitor_types'] ) ? $options['monitor_types'] : array() );
 
 		if ( count( $this->monitor_types ) > 0 && $options['monitor_post'] > 0 ) {
@@ -76,8 +77,10 @@ class Red_Monitor {
 			'status'      => 'disabled',
 		);
 
-		// Create a new redirect for this post
-		Red_Item::create( $data );
+		// Create a new redirect for this post, but only if not draft
+		if ( $data['url'] !== '/' ) {
+			Red_Item::create( $data );
+		}
 	}
 
 	/**

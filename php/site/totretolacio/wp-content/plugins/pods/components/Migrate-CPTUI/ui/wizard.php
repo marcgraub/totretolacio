@@ -1,7 +1,4 @@
 <div class="wrap pods-admin">
-	<script>
-		var PODS_URL = '<?php echo esc_js( PODS_URL ); ?>';
-	</script>
 	<div id="icon-pods" class="icon32"><br /></div>
 
 	<form action="" method="post" class="pods-submittable">
@@ -32,7 +29,7 @@
 				<div id="pods-wizard-main">
 					<div id="pods-wizard-panel-1" class="pods-wizard-panel">
 						<div class="pods-wizard-content">
-							<p><?php _e( 'Custom Post Type UI provides an interface to create Custom Post Types and Custom Taxonomies. You can import these and their settings directly into Pods 2.0', 'pods' ); ?></p>
+							<p><?php _e( 'Custom Post Type UI provides an interface to create Custom Post Types and Custom Taxonomies. You can import these and their settings directly into Pods', 'pods' ); ?></p>
 						</div>
 						<div id="pods-wizard-options">
 							<div class="pods-wizard-option">
@@ -57,7 +54,7 @@
 					</div>
 					<div id="pods-wizard-panel-2" class="pods-wizard-panel">
 						<div class="pods-wizard-content">
-							<p><?php _e( 'Choose below which Custom Post Types and Taxonomies you want to import into Pods 2.0', 'pods' ); ?></p>
+							<p><?php _e( 'Choose below which Custom Post Types and Taxonomies you want to import into Pods', 'pods' ); ?></p>
 						</div>
 
 						<div class="stuffbox">
@@ -82,7 +79,12 @@
 													?>
 													<li>
 														<div class="pods-field pods-boolean">
-															<?php echo PodsForm::field( 'post_type[' . $post_type_name . ']', pods_var_raw( 'post_type[' . $post_type_name . ']', 'post', true ), 'boolean', array( 'boolean_yes_label' => $post_type_label . ' (' . $post_type_name . ')' ) ); ?>
+															<?php
+															echo PodsForm::field( 'post_type[' . $post_type_name . ']', pods_var_raw( 'post_type[' . $post_type_name . ']', 'post', true ), 'boolean', [
+																'boolean_yes_label' => $post_type_label . ' (' . $post_type_name . ')',
+																'disable_dfv'       => true,
+															] );
+															?>
 														</div>
 													</li>
 													<?php
@@ -122,7 +124,12 @@
 													$taxonomy_label = pods_var_raw( 'label', $taxonomy, ucwords( str_replace( '_', ' ', $taxonomy_name ) ) );
 													?>
 													<li>
-														<?php echo PodsForm::field( 'taxonomy[' . $taxonomy_name . ']', pods_var_raw( 'taxonomy[' . $taxonomy_name . ']', 'post', true ), 'boolean', array( 'boolean_yes_label' => $taxonomy_label . ' (' . $taxonomy_name . ')' ) ); ?>
+														<?php
+														echo PodsForm::field( 'taxonomy[' . $taxonomy_name . ']', pods_var_raw( 'taxonomy[' . $taxonomy_name . ']', 'post', true ), 'boolean', [
+															'boolean_yes_label' => $taxonomy_label . ' (' . $taxonomy_name . ')',
+															'disable_dfv'       => true,
+														] );
+														?>
 													</li>
 													<?php
 												}
@@ -141,10 +148,10 @@
 						</div>
 					</div>
 
-					<div id="pods-wizard-actions">
+					<div id="pods-wizard-actions" class="pods-wizard-button-interface">
 						<div id="pods-wizard-toolbar">
-							<a href="#start" id="pods-wizard-start" class="button button-secondary"><?php _e( 'Start Over', 'pods' ); ?></a>
-							<a href="#next" id="pods-wizard-next" class="button button-primary" data-next="<?php esc_attr_e( 'Next Step', 'pods' ); ?>" data-finished="<?php esc_attr_e( 'Finished', 'pods' ); ?>" data-processing="<?php esc_attr_e( 'Processing', 'pods' ); ?>.."><?php _e( 'Next Step', 'pods' ); ?></a>
+							<button id="pods-wizard-start" class="button button-secondary"><?php _e( 'Start Over', 'pods' ); ?></button>
+							<button id="pods-wizard-next" class="button button-primary" data-next="<?php esc_attr_e( 'Next Step', 'pods' ); ?>" data-finished="<?php esc_attr_e( 'Finished', 'pods' ); ?>" data-processing="<?php esc_attr_e( 'Processing', 'pods' ); ?>.."><?php _e( 'Next Step', 'pods' ); ?></button>
 						</div>
 						<div id="pods-wizard-finished">
 

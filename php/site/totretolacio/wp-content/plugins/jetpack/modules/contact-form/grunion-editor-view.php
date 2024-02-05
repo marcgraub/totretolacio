@@ -1,12 +1,17 @@
-<?php
+<?php // phpcs:ignore WordPress.Files.FileName.InvalidClassFileName
+
+use Automattic\Jetpack\Assets;
 
 /*
  * A prototype to allow inline editing / editor views for contact forms.\
  *
- * Originally developed in: http://github.com/automattic/gm2016-grunion-editor
+ * Originally developed in: https://github.com/automattic/gm2016-grunion-editor
  * Authors: Michael Arestad, Andrew Ozz, and George Stephanis
  */
 
+/**
+ * Grunion editor view class.
+ */
 class Grunion_Editor_View {
 
 	/**
@@ -21,11 +26,17 @@ class Grunion_Editor_View {
 		}
 	}
 
+	/**
+	 * Admin header.
+	 */
 	public static function admin_head() {
 		remove_action( 'media_buttons', 'grunion_media_button', 999 );
 		add_action( 'media_buttons', array( __CLASS__, 'grunion_media_button' ), 999 );
 	}
 
+	/**
+	 * Render the grunion media button.
+	 */
 	public static function grunion_media_button() {
 		$title = __( 'Add Contact Form', 'jetpack' );
 		?>
@@ -38,16 +49,30 @@ class Grunion_Editor_View {
 		<?php
 	}
 
+	/**
+	 * Get external plugins.
+	 *
+	 * @param array $plugin_array - the plugin array.
+	 *
+	 * @return array
+	 */
 	public static function mce_external_plugins( $plugin_array ) {
-		$plugin_array['grunion_form'] = Jetpack::get_file_url_for_environment(
+		$plugin_array['grunion_form'] = Assets::get_file_url_for_environment(
 			'_inc/build/contact-form/js/tinymce-plugin-form-button.min.js',
 			'modules/contact-form/js/tinymce-plugin-form-button.js'
 		);
 		return $plugin_array;
 	}
 
+	/**
+	 * MCE buttons.
+	 *
+	 * @param array $buttons - the buttons.
+	 *
+	 * @return array
+	 */
 	public static function mce_buttons( $buttons ) {
-		$size     = sizeof( $buttons );
+		$size     = count( $buttons );
 		$buttons1 = array_slice( $buttons, 0, $size - 1 );
 		$buttons2 = array_slice( $buttons, $size - 1 );
 		return array_merge(
@@ -65,20 +90,22 @@ class Grunion_Editor_View {
 		add_filter( 'mce_external_plugins', array( __CLASS__, 'mce_external_plugins' ) );
 		add_filter( 'mce_buttons', array( __CLASS__, 'mce_buttons' ) );
 
-		wp_enqueue_style( 'grunion-editor-ui', plugins_url( 'css/editor-ui.css', __FILE__ ) );
+		wp_enqueue_style( 'grunion-editor-ui', plugins_url( 'css/editor-ui.css', __FILE__ ), array(), JETPACK__VERSION );
 		wp_style_add_data( 'grunion-editor-ui', 'rtl', 'replace' );
 		wp_enqueue_script(
 			'grunion-editor-view',
-			Jetpack::get_file_url_for_environment(
+			Assets::get_file_url_for_environment(
 				'_inc/build/contact-form/js/editor-view.min.js',
 				'modules/contact-form/js/editor-view.js'
 			),
 			array( 'wp-util', 'jquery', 'quicktags' ),
-			false,
+			JETPACK__VERSION,
 			true
 		);
 		wp_localize_script(
-			'grunion-editor-view', 'grunionEditorView', array(
+			'grunion-editor-view',
+			'grunionEditorView',
+			array(
 				'inline_editing_style'     => plugins_url( 'css/editor-inline-editing-style.css', __FILE__ ),
 				'inline_editing_style_rtl' => plugins_url( 'css/editor-inline-editing-style-rtl.css', __FILE__ ),
 				'dashicons_css_url'        => includes_url( 'css/dashicons.css' ),
@@ -292,7 +319,7 @@ class Grunion_Editor_View {
 </script>
 
 </div>
-	<?php
+		<?php
 	}
 }
 

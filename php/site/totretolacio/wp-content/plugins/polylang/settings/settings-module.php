@@ -1,4 +1,7 @@
 <?php
+/**
+ * @package Polylang
+ */
 
 /**
  * Base class for all settings
@@ -6,18 +9,94 @@
  * @since 1.8
  */
 class PLL_Settings_Module {
-	public $active_option, $configure;
-	public $module, $title, $description;
+	/**
+	 * Stores the plugin options.
+	 *
+	 * @var array
+	 */
 	public $options;
-	protected $action_links, $buttons, $form = false;
+
+	/**
+	 * @var PLL_Model
+	 */
+	public $model;
+
+	/**
+	 * Instance of a child class of PLL_Links_Model.
+	 *
+	 * @var PLL_Links_Model
+	 */
+	public $links_model;
+
+	/**
+	 * Stores if the module is active.
+	 *
+	 * @var string|false
+	 */
+	public $active_option;
+
+	/**
+	 * Stores the display order priority.
+	 *
+	 * @var int
+	 */
+	public $priority = 100;
+
+	/**
+	 * Stores the module name.
+	 * It must be unique.
+	 *
+	 * @var string|null
+	 */
+	public $module;
+
+	/**
+	 * Stores the module title.
+	 *
+	 * @var string
+	 */
+	public $title;
+
+	/**
+	 * Stores the module description.
+	 *
+	 * @var string
+	 */
+	public $description;
+
+	/**
+	 * Stores the settings actions.
+	 *
+	 * @var array
+	 */
+	protected $action_links;
+
+	/**
+	 * Stores html fragment for the buttons.
+	 *
+	 * @var array
+	 */
+	protected $buttons;
+
+	/**
+	 * Stores html form when provided by a child class.
+	 *
+	 * @var string|false
+	 */
+	protected $form = false;
 
 	/**
 	 * Constructor
 	 *
 	 * @since 1.8
 	 *
-	 * @param object $polylang Polylang object
-	 * @param array  $args
+	 * @param object $polylang The Polylang object.
+	 * @param array  $args {
+	 *   @type string       $module        Unique module name.
+	 *   @type string       $title         The title of the settings module.
+	 *   @type string       $description   The description of the settings module.
+	 *   @type string|false $active_option Optional option name storing if the module is active, false if not used.
+	 * }
 	 */
 	public function __construct( &$polylang, $args ) {
 		$this->options = &$polylang->options;
@@ -48,13 +127,13 @@ class PLL_Settings_Module {
 			'deactivate'  => sprintf(
 				'<a title="%s" href="%s">%s</a>',
 				esc_attr__( 'Deactivate this module', 'polylang' ),
-				wp_nonce_url( '?page=mlang&amp;tab=modules&amp;pll_action=deactivate&amp;noheader=true&amp;module=' . $this->module, 'pll_deactivate' ),
+				esc_url( wp_nonce_url( '?page=mlang&tab=modules&pll_action=deactivate&noheader=true&module=' . $this->module, 'pll_deactivate' ) ),
 				esc_html__( 'Deactivate', 'polylang' )
 			),
 			'activate'    => sprintf(
 				'<a title="%s" href="%s">%s</a>',
 				esc_attr__( 'Activate this module', 'polylang' ),
-				wp_nonce_url( '?page=mlang&amp;tab=modules&amp;pll_action=activate&amp;noheader=true&amp;module=' . $this->module, 'pll_activate' ),
+				esc_url( wp_nonce_url( '?page=mlang&tab=modules&pll_action=activate&noheader=true&module=' . $this->module, 'pll_activate' ) ),
 				esc_html__( 'Activate', 'polylang' )
 			),
 			'activated'   => esc_html__( 'Activated', 'polylang' ),
@@ -62,8 +141,8 @@ class PLL_Settings_Module {
 		);
 
 		$this->buttons = array(
-			'cancel' => sprintf( '<button type="button" class="button button-secondary cancel">%s</button>', esc_html__( 'Cancel' ) ),
-			'save'   => sprintf( '<button type="button" class="button button-primary save">%s</button>', esc_html__( 'Save Changes' ) ),
+			'cancel' => sprintf( '<button type="button" class="button button-secondary cancel">%s</button>', esc_html__( 'Cancel', 'polylang' ) ),
+			'save'   => sprintf( '<button type="button" class="button button-primary save">%s</button>', esc_html__( 'Save Changes', 'polylang' ) ),
 		);
 
 		// Ajax action to save options
@@ -85,6 +164,8 @@ class PLL_Settings_Module {
 	 * Activates the module
 	 *
 	 * @since 1.8
+	 *
+	 * @return void
 	 */
 	public function activate() {
 		if ( ! empty( $this->active_option ) ) {
@@ -97,6 +178,8 @@ class PLL_Settings_Module {
 	 * Deactivates the module
 	 *
 	 * @since 1.8
+	 *
+	 * @return void
 	 */
 	public function deactivate() {
 		if ( ! empty( $this->active_option ) ) {
@@ -109,6 +192,8 @@ class PLL_Settings_Module {
 	 * Protected method to display a configuration form
 	 *
 	 * @since 1.8
+	 *
+	 * @return void
 	 */
 	protected function form() {
 		// Child classes can provide a form
@@ -133,21 +218,23 @@ class PLL_Settings_Module {
 	}
 
 	/**
-	 * Allows child classes to validate their options before saving
+	 * Allows child classes to validate their options before saving.
 	 *
 	 * @since 1.8
 	 *
-	 * @param array $options Raw options
+	 * @param array $options Unsanitized options to save.
 	 * @return array Options
 	 */
-	protected function update( $options ) {
-		return array(); // It's responsibility of the child class to decide what is saved
+	protected function update( $options ) { // phpcs:ignore VariableAnalysis.CodeAnalysis.VariableAnalysis.UnusedVariable
+		return array(); // It's responsibility of the child class to decide what is saved.
 	}
 
 	/**
 	 * Ajax method to save the options
 	 *
 	 * @since 1.8
+	 *
+	 * @return void
 	 */
 	public function save_options() {
 		check_ajax_referer( 'pll_options', '_pll_nonce' );
@@ -155,7 +242,7 @@ class PLL_Settings_Module {
 			wp_die( -1 );
 		}
 
-		if ( $this->module == $_POST['module'] ) {
+		if ( isset( $_POST['module'] ) && $this->module === $_POST['module'] ) {
 			// It's up to the child class to decide which options are saved, whether there are errors or not
 			$post = array_diff_key( $_POST, array_flip( array( 'action', 'module', 'pll_ajax_backend', '_pll_nonce' ) ) );
 			$options = $this->update( $post );
@@ -169,11 +256,12 @@ class PLL_Settings_Module {
 			// Don't use flush_rewrite_rules as we don't have the right links model and permastruct
 			delete_option( 'rewrite_rules' );
 
+
 			ob_start();
 
-			if ( ! get_settings_errors() ) {
+			if ( empty( get_settings_errors() ) ) {
 				// Send update message
-				add_settings_error( 'general', 'settings_updated', __( 'Settings saved.' ), 'updated' );
+				add_settings_error( 'general', 'settings_updated', __( 'Settings saved.', 'polylang' ), 'updated' );
 				settings_errors();
 				$x = new WP_Ajax_Response( array( 'what' => 'success', 'data' => ob_get_clean() ) );
 				$x->send();
@@ -187,13 +275,15 @@ class PLL_Settings_Module {
 	}
 
 	/**
-	 * Get the row actions
+	 * Get the row actions.
 	 *
 	 * @since 1.8
 	 *
-	 * @return array
+	 * @return string[]
 	 */
 	protected function get_actions() {
+		$actions = array();
+
 		if ( $this->is_active() && $this->get_form() ) {
 			$actions[] = 'configure';
 		}
@@ -210,11 +300,11 @@ class PLL_Settings_Module {
 	}
 
 	/**
-	 * Get the actions links
+	 * Get the actions links.
 	 *
 	 * @since 1.8
 	 *
-	 * @return array
+	 * @return string[] Action links.
 	 */
 	public function get_action_links() {
 		return array_intersect_key( $this->action_links, array_flip( $this->get_actions() ) );
@@ -230,7 +320,7 @@ class PLL_Settings_Module {
 	protected function default_upgrade_message() {
 		return sprintf(
 			'%s <a href="%s">%s</a>',
-			__( 'You need Polylang Pro to enable this feature.', 'polylang' ),
+			__( 'To enable this feature, you need Polylang Pro.', 'polylang' ),
 			'https://polylang.pro',
 			__( 'Upgrade now.', 'polylang' )
 		);
@@ -248,11 +338,11 @@ class PLL_Settings_Module {
 	}
 
 	/**
-	 * Get the buttons
+	 * Get the buttons.
 	 *
 	 * @since 1.9
 	 *
-	 * @return array
+	 * @return string[] An array of html fragment for the buttons.
 	 */
 	public function get_buttons() {
 		return $this->buttons;

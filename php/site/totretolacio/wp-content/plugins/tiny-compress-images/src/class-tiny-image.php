@@ -57,15 +57,17 @@ class Tiny_Image {
 			return;
 		}
 
-		$path_info = pathinfo( $this->wp_metadata['file'] );
-		$this->name = $path_info['basename'];
-
 		$upload_dir = wp_upload_dir();
 		$path_prefix = $upload_dir['basedir'] . '/';
+		$path_info = pathinfo( $this->wp_metadata['file'] );
 		if ( isset( $path_info['dirname'] ) ) {
 			$path_prefix .= $path_info['dirname'] . '/';
 		}
 
+		/* Do not use pathinfo for getting the filename.
+			 It doesn't work when the filename starts with a special character. */
+		$path_parts = explode( '/', $this->wp_metadata['file'] );
+		$this->name = end( $path_parts );
 		$filename = $path_prefix . $this->name;
 		$this->sizes[ self::ORIGINAL ] = new Tiny_Image_Size( $filename );
 
@@ -132,8 +134,12 @@ class Tiny_Image {
 			foreach ( $tiny_metadata as $size => $meta ) {
 				if ( ! isset( $this->sizes[ $size ] ) ) {
 					if ( self::is_retina( $size ) && Tiny_Settings::wr2x_active() ) {
+						$size_name = rtrim( $size, '_wr2x' );
+						if ( 'original' === $size_name ) {
+							$size_name = '0';
+						}
 						$retina_path = wr2x_get_retina(
-							$this->sizes[ rtrim( $size, '_wr2x' ) ]->filename
+							$this->sizes[ $size_name ]->filename
 						);
 						$this->sizes[ $size ] = new Tiny_Image_Size( $retina_path );
 					} else {
@@ -158,7 +164,7 @@ class Tiny_Image {
 	}
 
 	public function file_type_allowed() {
-		return in_array( $this->get_mime_type(), array( 'image/jpeg', 'image/png' ) );
+		return in_array( $this->get_mime_type(), array( 'image/jpeg', 'image/png', 'image/webp') );
 	}
 
 	public function get_mime_type() {
@@ -280,6 +286,7 @@ class Tiny_Image {
 				if ( isset( $output['width'] ) && isset( $output['height'] ) ) {
 					$this->wp_metadata['width'] = $output['width'];
 					$this->wp_metadata['height'] = $output['height'];
+					$this->wp_metadata['filesize'] = $output['size'];
 				}
 			}
 		}
@@ -466,6 +473,6 @@ class Tiny_Image {
 	}
 
 	public static function is_retina( $size ) {
-			return strrpos( $size, 'wr2x' ) === strlen( $size ) - strlen( 'wr2x' );
+		return strrpos( $size, 'wr2x' ) === strlen( $size ) - strlen( 'wr2x' );
 	}
 }

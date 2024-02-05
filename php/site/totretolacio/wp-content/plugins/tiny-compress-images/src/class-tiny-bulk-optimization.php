@@ -83,7 +83,8 @@ class Tiny_Bulk_Optimization {
 				$wpdb->posts.post_type = 'attachment'
 				AND (
 					$wpdb->posts.post_mime_type = 'image/jpeg' OR
-					$wpdb->posts.post_mime_type = 'image/png'
+					$wpdb->posts.post_mime_type = 'image/png' OR
+					$wpdb->posts.post_mime_type = 'image/webp'
 				)
 				AND $wpdb->postmeta.meta_key = '_wp_attachment_metadata'
 			GROUP BY unique_attachment_name
@@ -97,8 +98,8 @@ class Tiny_Bulk_Optimization {
 		$active_sizes = $settings->get_sizes();
 		$active_tinify_sizes = $settings->get_active_tinify_sizes();
 		for ( $i = 0; $i < sizeof( $result ); $i++ ) {
-			$wp_metadata = unserialize( $result[ $i ]['meta_value'] );
-			$tiny_metadata = unserialize( $result[ $i ]['tiny_meta_value'] );
+			$wp_metadata = unserialize( (string) $result[ $i ]['meta_value'] );
+			$tiny_metadata = unserialize( (string) $result[ $i ]['tiny_meta_value'] );
 			if ( ! is_array( $tiny_metadata ) ) {
 				$tiny_metadata = array();
 			}

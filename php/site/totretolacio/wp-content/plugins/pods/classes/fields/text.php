@@ -30,65 +30,75 @@ class PodsField_Text extends PodsField {
 	 */
 	public function setup() {
 
-		self::$label = __( 'Plain Text', 'pods' );
+		static::$group = __( 'Text', 'pods' );
+		static::$label = __( 'Plain Text', 'pods' );
 	}
 
 	/**
 	 * {@inheritdoc}
 	 */
 	public function options() {
-
-		$options = array(
-			static::$type . '_repeatable'        => array(
-				'label'             => __( 'Repeatable Field', 'pods' ),
-				'default'           => 0,
-				'type'              => 'boolean',
-				'help'              => __( 'Making a field repeatable will add controls next to the field which allows users to Add/Remove/Reorder additional values. These values are saved in the database as an array, so searching and filtering by them may require further adjustments".', 'pods' ),
-				'boolean_yes_label' => '',
-				'dependency'        => true,
-				'developer_mode'    => true,
-			),
-			'output_options'                     => array(
-				'label' => __( 'Output Options', 'pods' ),
-				'group' => array(
-					static::$type . '_allow_shortcode' => array(
-						'label'      => __( 'Allow Shortcodes?', 'pods' ),
+		return [
+			'output_options'                     => [
+				'label'         => __( 'Output Options', 'pods' ),
+				'type'          => 'boolean_group',
+				'boolean_group' => [
+					static::$type . '_trim'             => [
+						'label'   => __( 'Trim extra whitespace before/after contents', 'pods' ),
+						'default' => 1,
+						'type'    => 'boolean',
+					],
+					static::$type . '_trim_lines'       => [
+						'label'   => __( 'Trim whitespace at the end of lines', 'pods' ),
+						'default' => 0,
+						'type'    => 'boolean',
+					],
+					static::$type . '_trim_p_brs'       => [
+						'label'   => __( 'Remove blank lines including empty "p" tags and "br" tags', 'pods' ),
+						'default' => 0,
+						'type'    => 'boolean',
+					],
+					static::$type . '_trim_extra_lines' => [
+						'label'   => __( 'Remove extra blank lines (when there are 3+ blank lines, replace with a maximum of 2)', 'pods' ),
+						'default' => 0,
+						'type'    => 'boolean',
+					],
+					static::$type . '_allow_html'       => [
+						'label'      => __( 'Allow HTML', 'pods' ),
 						'default'    => 0,
 						'type'       => 'boolean',
 						'dependency' => true,
-					),
-					static::$type . '_allow_html'      => array(
-						'label'      => __( 'Allow HTML?', 'pods' ),
+					],
+					static::$type . '_allow_shortcode'  => [
+						'label'      => __( 'Allow Shortcodes', 'pods' ),
 						'default'    => 0,
 						'type'       => 'boolean',
 						'dependency' => true,
-					),
-				),
-			),
-			static::$type . '_allowed_html_tags' => array(
+					],
+				],
+			],
+			static::$type . '_allowed_html_tags' => [
 				'label'      => __( 'Allowed HTML Tags', 'pods' ),
-				'depends-on' => array( static::$type . '_allow_html' => true ),
+				'depends-on' => [ static::$type . '_allow_html' => true ],
 				'default'    => 'strong em a ul ol li b i',
 				'type'       => 'text',
-			),
-			static::$type . '_max_length'        => array(
+			],
+			static::$type . '_max_length'        => [
 				'label'   => __( 'Maximum Length', 'pods' ),
 				'default' => 255,
 				'type'    => 'number',
 				'help'    => __( 'Set to -1 for no limit', 'pods' ),
-			),
-			static::$type . '_placeholder'       => array(
+			],
+			static::$type . '_placeholder'       => [
 				'label'   => __( 'HTML Placeholder', 'pods' ),
 				'default' => '',
 				'type'    => 'text',
-				'help'    => array(
+				'help'    => [
 					__( 'Placeholders can provide instructions or an example of the required data format for a field. Please note: It is not a replacement for labels or description text, and it is less accessible for people using screen readers.', 'pods' ),
 					'https://www.w3.org/WAI/tutorials/forms/instructions/#placeholder-text',
-				),
-			),
-		);
-
-		return $options;
+				],
+			],
+		];
 	}
 
 	/**
@@ -111,8 +121,9 @@ class PodsField_Text extends PodsField {
 	 * {@inheritdoc}
 	 */
 	public function display( $value = null, $name = null, $options = null, $pod = null, $id = null ) {
-
 		$value = $this->strip_html( $value, $options );
+		$value = $this->strip_shortcodes( $value, $options );
+		$value = $this->trim_whitespace( $value, $options );
 
 		if ( 1 === (int) pods_v( static::$type . '_allow_shortcode', $options ) ) {
 			$value = do_shortcode( $value );
@@ -126,16 +137,14 @@ class PodsField_Text extends PodsField {
 	 */
 	public function input( $name, $value = null, $options = null, $pod = null, $id = null ) {
 
-		$options         = (array) $options;
+		$options         = ( is_array( $options ) || is_object( $options ) ) ? $options : (array) $options;
 		$form_field_type = PodsForm::$field_type;
 
-		if ( is_array( $value ) ) {
-			$value = implode( ' ', $value );
-		}
+		$value = $this->normalize_value_for_input( $value, $options );
 
 		$is_read_only = (boolean) pods_v( 'read_only', $options, false );
 
-		if ( isset( $options['name'] ) && false === PodsForm::permission( static::$type, $options['name'], $options, null, $pod, $id ) ) {
+		if ( isset( $options['name'] ) && ! pods_permission( $options ) ) {
 			if ( $is_read_only ) {
 				$options['readonly'] = true;
 			} else {
@@ -145,23 +154,37 @@ class PodsField_Text extends PodsField {
 			$options['readonly'] = true;
 		}
 
-		pods_view( PODS_DIR . 'ui/fields/text.php', compact( array_keys( get_defined_vars() ) ) );
+		if ( ! empty( $options['disable_dfv'] ) ) {
+			return pods_view( PODS_DIR . 'ui/fields/text.php', compact( array_keys( get_defined_vars() ) ) );
+		}
+
+		$type = pods_v( 'type', $options, static::$type );
+
+		$args = compact( array_keys( get_defined_vars() ) );
+		$args = (object) $args;
+
+		$this->render_input_script( $args );
 	}
 
 	/**
 	 * {@inheritdoc}
 	 */
 	public function validate( $value, $name = null, $options = null, $fields = null, $pod = null, $id = null, $params = null ) {
+		$validate = parent::validate( $value, $name, $options, $fields, $pod, $id, $params );
 
 		$errors = array();
+
+		if ( is_array( $validate ) ) {
+			$errors = $validate;
+		}
 
 		$check = $this->pre_save( $value, $id, $name, $options, $fields, $pod, $params );
 
 		if ( is_array( $check ) ) {
 			$errors = $check;
 		} else {
-			if ( 0 < strlen( $value ) && '' === $check ) {
-				if ( 1 === (int) pods_v( 'required', $options ) ) {
+			if ( '' !== $value && '' === $check ) {
+				if ( $this->is_required( $options ) ) {
 					$errors[] = __( 'This field is required.', 'pods' );
 				}
 			}
@@ -171,15 +194,16 @@ class PodsField_Text extends PodsField {
 			return $errors;
 		}
 
-		return true;
+		return $validate;
 	}
 
 	/**
 	 * {@inheritdoc}
 	 */
 	public function pre_save( $value, $id = null, $name = null, $options = null, $fields = null, $pod = null, $params = null ) {
-
 		$value = $this->strip_html( $value, $options );
+		$value = $this->strip_shortcodes( $value, $options );
+		$value = $this->trim_whitespace( $value, $options );
 
 		$length = (int) pods_v( static::$type . '_max_length', $options, 255 );
 
@@ -194,8 +218,9 @@ class PodsField_Text extends PodsField {
 	 * {@inheritdoc}
 	 */
 	public function ui( $id, $value, $name = null, $options = null, $fields = null, $pod = null ) {
-
 		$value = $this->strip_html( $value, $options );
+		$value = $this->strip_shortcodes( $value, $options );
+		$value = $this->trim_whitespace( $value, $options );
 
 		if ( 0 === (int) pods_v( static::$type . '_allow_html', $options, 0, true ) ) {
 			$value = wp_trim_words( $value );

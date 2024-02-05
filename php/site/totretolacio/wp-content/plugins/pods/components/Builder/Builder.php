@@ -2,12 +2,15 @@
 /**
  * Name: Builder Integration
  *
- * Description: Integration with the <a href="http://ithemes.com/">Builder</a> theme / child themes from <a
- * href="http://ithemes.com/">iThemes</a>; Adds new modules to the Layout engine
+ * Description: Integration with the <a href="http://ithemes.com/">Builder</a> theme / child themes from <a href="http://ithemes.com/">iThemes</a>; Adds new modules to the Layout engine
  *
  * Version: 1.0
  *
  * Category: Integration
+ *
+ * Deprecated: Yes
+ * Deprecated In Version: 2.9.13
+ * Deprecated Removal Version: 3.1
  *
  * Plugin: pods-builder/pods-builder.php
  *

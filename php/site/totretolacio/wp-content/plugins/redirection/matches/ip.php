@@ -1,9 +1,17 @@
 <?php
 
+/**
+ * Check the request IP
+ */
 class IP_Match extends Red_Match {
 	use FromNotFrom_Match;
 
-	public $ip;
+	/**
+	 * Array of IP addresses
+	 *
+	 * @var string[]
+	 */
+	public $ip = [];
 
 	public function name() {
 		return __( 'URL and IP', 'redirection' );
@@ -15,8 +23,14 @@ class IP_Match extends Red_Match {
 		return $this->save_data( $details, $no_target_url, $data );
 	}
 
+	/**
+	 * Sanitize a single IP
+	 *
+	 * @param string $ip IP.
+	 * @return string|false
+	 */
 	private function sanitize_single_ip( $ip ) {
-		$ip = @inet_pton( trim( $ip ) );
+		$ip = @inet_pton( trim( sanitize_text_field( $ip ) ) );
 		if ( $ip !== false ) {
 			return @inet_ntop( $ip );  // Convert back to string
 		}
@@ -24,29 +38,35 @@ class IP_Match extends Red_Match {
 		return false;
 	}
 
-	private function sanitize_ips( $ips ) {
-		if ( is_array( $ips ) ) {
-			$ips = array_map( array( $this, 'sanitize_single_ip' ), $ips );
-			return array_filter( array_unique( $ips ) );
-		}
-
-		return array();
+	/**
+	 * Sanitize a list of IPs
+	 *
+	 * @param string[] $ips List of IPs.
+	 * @return string[]
+	 */
+	private function sanitize_ips( array $ips ) {
+		$ips = array_map( array( $this, 'sanitize_single_ip' ), $ips );
+		return array_values( array_filter( array_unique( $ips ) ) );
 	}
 
-	public function get_target( $url, $matched_url, $regex ) {
-		$current_ip = @inet_pton( Redirection_Request::get_ip() );
+	/**
+	 * Get a list of IPs that match.
+	 *
+	 * @param string $match_ip IP to match.
+	 * @return string[]
+	 */
+	private function get_matching_ips( $match_ip ) {
+		$current_ip = @inet_pton( $match_ip );
 
-		$matched = array_filter( $this->ip, function( $ip ) use ( $current_ip ) {
+		return array_filter( $this->ip, function( $ip ) use ( $current_ip ) {
 			return @inet_pton( $ip ) === $current_ip;
 		} );
+	}
 
-		$target = $this->get_matched_target( count( $matched ) > 0 );
+	public function is_match( $url ) {
+		$matched = $this->get_matching_ips( Redirection_Request::get_ip() );
 
-		if ( $regex && $target ) {
-			return $this->get_target_regex_url( $matched_url, $target, $url );
-		}
-
-		return $target;
+		return count( $matched ) > 0;
 	}
 
 	public function get_data() {
@@ -57,6 +77,6 @@ class IP_Match extends Red_Match {
 
 	public function load( $values ) {
 		$values = $this->load_data( $values );
-		$this->ip = $values['ip'];
+		$this->ip = isset( $values['ip'] ) ? $values['ip'] : [];
 	}
 }

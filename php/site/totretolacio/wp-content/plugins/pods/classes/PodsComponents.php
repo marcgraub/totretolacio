@@ -29,7 +29,16 @@ class PodsComponents {
 	 *
 	 * @since 2.0.0
 	 */
-	public $components = array();
+	public $components = [];
+
+	/**
+	 * Registered component menu items.
+	 *
+	 * @var array
+	 *
+	 * @since 2.9.8
+	 */
+	public $components_menu_items = [];
 
 	/**
 	 * Components settings
@@ -38,7 +47,7 @@ class PodsComponents {
 	 *
 	 * @since 2.0.0
 	 */
-	public $settings = array();
+	public $settings = [];
 
 	/**
 	 * Singleton handling for a basic pods_components() request
@@ -151,7 +160,7 @@ class PodsComponents {
 
 			$capability = 'pods_component_' . str_replace( '-', '_', sanitize_title( $component ) );
 
-			if ( 0 < strlen( $component_data['Capability'] ) ) {
+			if ( 0 < strlen( (string) $component_data['Capability'] ) ) {
 				$capability = $component_data['Capability'];
 			}
 
@@ -202,8 +211,16 @@ class PodsComponents {
 
 		ksort( $pods_component_menu_items );
 
+		$this->components_menu_items = $pods_component_menu_items;
+
 		foreach ( $pods_component_menu_items as $menu_title => $menu_data ) {
-			if ( ! is_callable( $menu_data['callback'] ) ) {
+			if (
+				(
+					'' !== $menu_data['callback']
+					|| false === strpos( $menu_data['menu_page'], '.php' )
+				)
+				&& ! is_callable( $menu_data['callback'] )
+			) {
 				continue;
 			}
 
@@ -385,31 +402,34 @@ class PodsComponents {
 				closedir( $component_dir );
 			}//end if
 
-			$default_headers = array(
-				'ID'               => 'ID',
-				'Name'             => 'Name',
-				'ShortName'        => 'Short Name',
-				'PluginName'       => 'Plugin Name',
-				'ComponentName'    => 'Component Name',
-				'URI'              => 'URI',
-				'MenuName'         => 'Menu Name',
-				'MenuPage'         => 'Menu Page',
-				'MenuAddPage'      => 'Menu Add Page',
-				'MustUse'          => 'Must Use',
-				'Description'      => 'Description',
-				'Version'          => 'Version',
-				'Category'         => 'Category',
-				'Author'           => 'Author',
-				'AuthorURI'        => 'Author URI',
-				'Class'            => 'Class',
-				'Hide'             => 'Hide',
-				'PluginDependency' => 'Plugin Dependency',
-				'ThemeDependency'  => 'Theme Dependency',
-				'DeveloperMode'    => 'Developer Mode',
-				'TablelessMode'    => 'Tableless Mode',
-				'Capability'       => 'Capability',
-				'Plugin'           => 'Plugin',
-			);
+			$default_headers = [
+				'ID'                       => 'ID',
+				'Name'                     => 'Name',
+				'ShortName'                => 'Short Name',
+				'PluginName'               => 'Plugin Name',
+				'ComponentName'            => 'Component Name',
+				'URI'                      => 'URI',
+				'MenuName'                 => 'Menu Name',
+				'MenuPage'                 => 'Menu Page',
+				'MenuAddPage'              => 'Menu Add Page',
+				'MustUse'                  => 'Must Use',
+				'Description'              => 'Description',
+				'Deprecated'               => 'Deprecated',
+				'DeprecatedInVersion'      => 'Deprecated In Version',
+				'DeprecatedRemovalVersion' => 'Deprecated Removal Version',
+				'Version'                  => 'Version',
+				'Category'                 => 'Category',
+				'Author'                   => 'Author',
+				'AuthorURI'                => 'Author URI',
+				'Class'                    => 'Class',
+				'Hide'                     => 'Hide',
+				'PluginDependency'         => 'Plugin Dependency',
+				'ThemeDependency'          => 'Theme Dependency',
+				'DeveloperMode'            => 'Developer Mode',
+				'TablelessMode'            => 'Tableless Mode',
+				'Capability'               => 'Capability',
+				'Plugin'                   => 'Plugin',
+			];
 
 			$component_files = apply_filters( 'pods_components_register', $component_files );
 
@@ -496,9 +516,9 @@ class PodsComponents {
 
 			ksort( $components );
 
-			pods_transient_set( 'pods_components_refresh', 1, ( 60 * 60 * 12 ) );
+			pods_transient_set( 'pods_components_refresh', 1, HOUR_IN_SECONDS * 12 );
 
-			pods_transient_set( 'pods_components', $components );
+			pods_transient_set( 'pods_components', $components, WEEK_IN_SECONDS );
 		}//end if
 
 		if ( 1 === (int) pods_v( 'pods_debug_components', 'get', 0 ) && pods_is_admin( array( 'pods' ) ) ) {
@@ -537,7 +557,6 @@ class PodsComponents {
 	 * @since 2.0.0
 	 */
 	public function admin_handler() {
-
 		$component = str_replace( 'pods-component-', '', pods_v_sanitized( 'page' ) );
 
 		if ( isset( $this->components[ $component ] ) && isset( $this->components[ $component ]['object'] ) && is_object( $this->components[ $component ]['object'] ) ) {
@@ -706,7 +725,7 @@ class PodsComponents {
 
 			$capability = 'pods_component_' . str_replace( '-', '_', sanitize_title( str_replace( ' and ', ' ', strip_tags( $component_data['Name'] ) ) ) );
 
-			if ( 0 < strlen( $component_data['Capability'] ) ) {
+			if ( 0 < strlen( (string) $component_data['Capability'] ) ) {
 				$capability = $component_data['Capability'];
 			}
 
@@ -750,11 +769,11 @@ class PodsComponents {
 		$method    = $params->method;
 
 		if ( ! isset( $component ) || ! isset( $this->components[ $component ] ) || ! isset( $this->settings['components'][ $component ] ) ) {
-			pods_error( 'Invalid AJAX request', $this );
+			pods_error( __( 'Invalid AJAX request', 'pods' ), $this );
 		}
 
 		if ( ! isset( $params->_wpnonce ) || false === wp_verify_nonce( $params->_wpnonce, 'pods-component-' . $component . '-' . $method ) ) {
-			pods_error( 'Unauthorized request', $this );
+			pods_error( __( 'Unauthorized request', 'pods' ), $this );
 		}
 
 		// Cleaning up $params
@@ -774,7 +793,7 @@ class PodsComponents {
 			$output = call_user_func( array( $this, 'admin_ajax_' . $method ), $component, $params );
 		} elseif ( ! isset( $this->components[ $component ]['object'] ) || ! method_exists( $this->components[ $component ]['object'], 'ajax_' . $method ) ) {
 			// Make sure method exists
-			pods_error( 'API method does not exist', $this );
+			pods_error( __( 'API method does not exist', 'pods' ), $this );
 		} else {
 			// Dynamically call the component method
 			$output = call_user_func( array( $this->components[ $component ]['object'], 'ajax_' . $method ), $params );
@@ -802,7 +821,7 @@ class PodsComponents {
 		if ( ! isset( $this->components[ $component ] ) ) {
 			wp_die( 'Invalid Component', '', array( 'back_link' => true ) );
 		} elseif ( ! method_exists( $this->components[ $component ]['object'], 'options' ) ) {
-			pods_error( 'Component options method does not exist', $this );
+			pods_error( __( 'Component options method does not exist', 'pods' ), $this );
 		}
 
 		$options = $this->components[ $component ]['object']->options( $this->settings['components'][ $component ] );
@@ -838,12 +857,7 @@ class PodsComponents {
 	 * @param array $settings Component settings.
 	 */
 	public function update_settings( $settings ) {
-
-		if ( version_compare( PHP_VERSION, '5.4.0', '>=' ) ) {
-			$settings = wp_json_encode( $settings, JSON_UNESCAPED_UNICODE );
-		} else {
-			$settings = wp_json_encode( $settings );
-		}
+		$settings = wp_json_encode( $settings, JSON_UNESCAPED_UNICODE );
 
 		update_option( 'pods_component_settings', $settings );
 

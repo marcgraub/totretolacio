@@ -1,9 +1,14 @@
 <?php
 /**
  * Jetpack Compatibility File
- * See: http://jetpack.com/
+ * See: https://jetpack.com/
+ *
+ * @package automattic/jetpack
  */
 
+/**
+ * Add Jetpack theme supports for Twenty Sixteen.
+ */
 function twentysixteen_jetpack_setup() {
 	/**
 	 * Add theme support for Responsive Videos.
@@ -17,6 +22,9 @@ function twentysixteen_jetpack_setup() {
 }
 add_action( 'after_setup_theme', 'twentysixteen_jetpack_setup' );
 
+/**
+ * Enqueue Jetpack compat styles for Twenty Sixteen.
+ */
 function twentysixteen_init_jetpack() {
 	/**
 	 * Add our compat CSS file for custom widget stylings and such.
@@ -37,7 +45,7 @@ add_action( 'init', 'twentysixteen_init_jetpack' );
 /**
  * Alter gallery widget default width.
  */
-function twentysixteen_gallery_widget_content_width( $width ) {
+function twentysixteen_gallery_widget_content_width() {
 	return 390;
 }
 add_filter( 'gallery_widget_content_width', 'twentysixteen_gallery_widget_content_width' );
@@ -54,19 +62,3 @@ function twentysixteen_remove_share() {
 	}
 }
 add_action( 'loop_start', 'twentysixteen_remove_share' );
-
-function twentysixteen_jetpack_lazy_images_compat() {
-	if ( ! function_exists( 'wp_add_inline_script' ) ) {
-		return;
-	}
-
-	// Since TwentySixteen outdents when window is resized, let's trigger a window resize
-	// every time we lazy load an image on the TwentySixteen theme.
-	wp_add_inline_script(
-		'jetpack-lazy-images',
-		"jQuery( document.body ).on( 'jetpack-lazy-loaded-image', function () { jQuery( window ).trigger( 'resize' ); } );"
-	);
-}
-
-// Priority needs to be 11 here so that we have already enqueued jetpack-lazy-images.
-add_action( 'wp_enqueue_scripts', 'twentysixteen_jetpack_lazy_images_compat', 11 );

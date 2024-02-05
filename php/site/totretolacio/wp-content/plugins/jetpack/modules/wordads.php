@@ -7,12 +7,18 @@
  * Requires Connection: Yes
  * Auto Activate: No
  * Module Tags: Traffic, Appearance
- * Additional Search Queries: advertising, ad codes, ads
- * Plans: premium, business
+ * Additional Search Queries: advertising, ad codes, ads, creator
+ * Plans: premium, business, security, complete
+ *
+ * @package automattic/jetpack
  */
 
+/**
+ * Load WordAds.
+ */
 function jetpack_load_wordads() {
-	require_once( dirname( __FILE__ ) . "/wordads/wordads.php" );
+	Jetpack::enable_module_configurable( __FILE__ );
+	require_once __DIR__ . '/wordads/class-wordads.php';
 }
 
 jetpack_load_wordads();

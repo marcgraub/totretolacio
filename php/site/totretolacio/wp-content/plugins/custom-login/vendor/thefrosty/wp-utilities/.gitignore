@@ -1,0 +1,11 @@
+.idea/
+.DS_Store
+coverage/
+tests/results/
+tests/clover.xml
+vendor/
+wordpress/
+.phpunit.result.cache
+composer.lock
+phpcs-report.xml
+*.bak

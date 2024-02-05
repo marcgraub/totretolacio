@@ -1,9 +1,17 @@
 <?php
 
+/**
+ * Match the WordPress page type
+ */
 class Page_Match extends Red_Match {
 	use FromUrl_Match;
 
-	public $page;
+	/**
+	 * Page type
+	 *
+	 * @var String
+	 */
+	public $page = '404';
 
 	public function name() {
 		return __( 'URL and WordPress page type', 'redirection' );
@@ -19,18 +27,8 @@ class Page_Match extends Red_Match {
 		return '404';
 	}
 
-	public function get_target( $url, $matched_url, $regex ) {
-		if ( ! is_404() ) {
-			return false;
-		}
-
-		$target = $this->get_matched_target( true );
-
-		if ( $regex && $target ) {
-			return $this->get_target_regex_url( $matched_url, $target, $url );
-		}
-
-		return $target;
+	public function is_match( $url ) {
+		return is_404();
 	}
 
 	public function get_data() {
@@ -39,8 +37,14 @@ class Page_Match extends Red_Match {
 		), $this->get_from_data() );
 	}
 
+	/**
+	 * Load the match data into this instance.
+	 *
+	 * @param string $values Match values, as read from the database (plain text or serialized PHP).
+	 * @return void
+	 */
 	public function load( $values ) {
 		$values = $this->load_data( $values );
-		$this->page = $values['page'];
+		$this->page = isset( $values['page'] ) ? $values['page'] : '404';
 	}
 }

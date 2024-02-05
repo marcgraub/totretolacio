@@ -2,69 +2,118 @@
 # This file is distributed under the same license as the Themes - Twenty Sixteen package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2017-05-12 06:07:26+0000\n"
+"PO-Revision-Date: 2022-04-28 19:33:48+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: GlotPress/2.4.0-alpha\n"
+"X-Generator: GlotPress/4.0.0-alpha.11\n"
 "Language: ca\n"
 "Project-Id-Version: Themes - Twenty Sixteen\n"
 
 #. Theme Name of the theme
+#: inc/block-patterns.php:17 inc/block-patterns.php:57
+#, gp-priority: high
 msgid "Twenty Sixteen"
 msgstr "Twenty Sixteen"
 
 #. Description of the theme
+#, gp-priority: high
 msgid "Twenty Sixteen is a modernized take on an ever-popular WordPress layout — the horizontal masthead with an optional right sidebar that works perfectly for blogs and websites. It has custom color options with beautiful default color schemes, a harmonious fluid grid using a mobile-first approach, and impeccable polish in every detail. Twenty Sixteen will make your WordPress look beautiful everywhere."
 msgstr "Twenty Sixteen és una revisió modernitzada de la distribució més famosa de tots els temps del WordPress - una distribució horitzontal amb una barra lateral opcional a la dreta que funciona perfectament en blogs i llocs web. Té opcions de colors personalitzats, amb paletes de color boniques per defecte, una harmoniosa graella fluida utilitzant el patró «mòbil primer», i acabats impecables en tots els detalls. Twenty Sixteen farà que el vostre WordPress es vegi preciós a tot arreu."
 
-#. translators: %s: Name of current post
-#: template-parts/content.php:28 inc/template-tags.php:184
-msgid "Continue reading<span class=\"screen-reader-text\"> \"%s\"</span>"
-msgstr "Continua llegint <span class=\"screen-reader-text\">«%s»</span>"
+#: functions.php:218
+msgid "Bright Red"
+msgstr "Vermell brillant"
 
-#. translators: %s: Name of current post
-#: template-parts/content.php:49 template-parts/content-page.php:37
+#: functions.php:213
+msgid "Dark Red"
+msgstr "Vermell fosc"
+
+#: functions.php:203
+msgid "Dark Brown"
+msgstr "Marró fosc"
+
+#: functions.php:198
+msgid "Light Blue"
+msgstr "Blau clar"
+
+#: functions.php:193
+msgid "Bright Blue"
+msgstr "Blau brillant"
+
+#: functions.php:188
+msgid "Blue Gray"
+msgstr "Gris blavós"
+
+#: functions.php:183
+msgid "White"
+msgstr "Blanc"
+
+#: functions.php:178
+msgid "Light Gray"
+msgstr "Gris clar"
+
+#: functions.php:168
+msgid "Dark Gray"
+msgstr "Gris fosc"
+
+#: functions.php:208
+msgid "Medium Brown"
+msgstr "Marronós"
+
+#: functions.php:173
+msgid "Medium Gray"
+msgstr "Grisenc"
+
+#. translators: %s: Post title. Only visible to screen readers.
+#: image.php:90 template-parts/content-page.php:40
 #: template-parts/content-search.php:28 template-parts/content-search.php:43
-#: template-parts/content-single.php:45 image.php:84
+#: template-parts/content-single.php:48 template-parts/content.php:54
 msgid "Edit<span class=\"screen-reader-text\"> \"%s\"</span>"
 msgstr "Edita <span class=\"screen-reader-text\">«%s»</span>"
 
-#: inc/customizer.php:283
+#. translators: %s: Post title. Only visible to screen readers.
+#: inc/template-tags.php:203 template-parts/content.php:29
+msgid "Continue reading<span class=\"screen-reader-text\"> \"%s\"</span>"
+msgstr "Continua llegint <span class=\"screen-reader-text\">«%s»</span>"
+
+#: inc/customizer.php:347
 msgid "Red"
 msgstr "Rouge"
 
-#. translators: %s: post title
+#. translators: %s: Post title.
 #: comments.php:31
 msgctxt "comments title"
 msgid "One thought on &ldquo;%s&rdquo;"
 msgstr "Una resposta a «%s»"
 
-#: searchform.php:16
+#. translators: Hidden accessibility text.
+#: searchform.php:24
 msgctxt "submit button"
 msgid "Search"
 msgstr "Cerca"
 
-#: searchform.php:14
+#: searchform.php:19
 msgctxt "placeholder"
 msgid "Search &hellip;"
 msgstr "Cerca &hellip;"
 
-#: searchform.php:13
+#. translators: Hidden accessibility text.
+#: searchform.php:16
 msgctxt "label"
 msgid "Search for:"
-msgstr "Buscar per:"
-
-#: footer.php:28
-msgid "Footer Social Links Menu"
-msgstr "Menú d'enllaços socials del peu de pàgina"
+msgstr "Cerca:"
 
 #: footer.php:17
 msgid "Footer Primary Menu"
 msgstr "Menú principal del peu de pàgina"
 
-#: functions.php:231
+#: footer.php:30
+msgid "Footer Social Links Menu"
+msgstr "Menú d'enllaços socials del peu de pàgina"
+
+#: functions.php:287
 msgid "Add widgets here to appear in your sidebar."
 msgstr "Afegiu ginys aquí que apareixeran a la barra lateral."
 
@@ -72,15 +121,16 @@ msgstr "Afegiu ginys aquí que apareixeran a la barra lateral."
 msgid "Featured"
 msgstr "Destacat"
 
-#: template-parts/content-none.php:28
+#: template-parts/content-none.php:33
 msgid "It seems we can&rsquo;t find what you&rsquo;re looking for. Perhaps searching can help."
 msgstr "Sembla que no hem trobat el que buscàveu. Potser hi ajudaria una cerca."
 
-#: template-parts/content-none.php:23
+#: template-parts/content-none.php:28
 msgid "Sorry, but nothing matched your search terms. Please try again with some different keywords."
 msgstr "No s'ha trobat res que coincideixi amb els termes cercats. Proveu de nou amb altres paraules clau diferents."
 
-#: template-parts/content-none.php:19
+#. translators: %s: Post editor URL.
+#: template-parts/content-none.php:22
 msgid "Ready to publish your first post? <a href=\"%1$s\">Get started here</a>."
 msgstr "Preparats per publicar la primera entrada? <a href=\"%1$s\">Comenceu aquí</a>."
 
@@ -88,7 +138,8 @@ msgstr "Preparats per publicar la primera entrada? <a href=\"%1$s\">Comenceu aqu
 msgid "Nothing Found"
 msgstr "No s'ha trobat res"
 
-#: template-parts/biography.php:33
+#. translators: %s: The post author display name.
+#: template-parts/biography.php:35
 msgid "View all posts by %s"
 msgstr "Mostra totes les entrades de %s"
 
@@ -96,196 +147,209 @@ msgstr "Mostra totes les entrades de %s"
 msgid "Author:"
 msgstr "Autor:"
 
-#: single.php:38
+#. translators: Hidden accessibility text.
+#: single.php:44
 msgid "Previous post:"
 msgstr "Entrada anterior:"
 
-#: single.php:37
-msgid "Previous"
-msgstr "Anterior"
-
-#: single.php:35
+#. translators: Hidden accessibility text.
+#: single.php:40
 msgid "Next post:"
 msgstr "Entrada següent:"
 
-#: single.php:34
+#: single.php:42
+msgid "Previous"
+msgstr "Anterior"
+
+#: single.php:38
 msgid "Next"
 msgstr "Següent"
 
-#: search.php:18
+#. translators: %s: The search query.
+#: search.php:21
 msgid "Search Results for: %s"
 msgstr "Resultats de la cerca de: %s"
 
-#: inc/template-tags.php:106
+#. translators: Hidden accessibility text.
+#: inc/template-tags.php:121
 msgctxt "Used before tag names."
 msgid "Tags"
 msgstr "Etiquetes"
 
-#: inc/template-tags.php:98
+#. translators: Hidden accessibility text.
+#: inc/template-tags.php:111
 msgctxt "Used before category names."
 msgid "Categories"
 msgstr "Categories"
 
-#: inc/template-tags.php:95 inc/template-tags.php:103
+#: inc/template-tags.php:106 inc/template-tags.php:116
 msgctxt "Used between list items, there is a space after the comma."
 msgid ", "
 msgstr ", "
 
-#: inc/template-tags.php:79
+#. translators: Hidden accessibility text.
+#: inc/template-tags.php:90
 msgctxt "Used before publish date."
 msgid "Posted on"
 msgstr "Publicat el"
 
-#: inc/template-tags.php:38
+#. translators: Hidden accessibility text.
+#: inc/template-tags.php:44
 msgctxt "Used before post format."
 msgid "Format"
 msgstr "Format"
 
-#: inc/template-tags.php:50
+#. translators: %s: Post title. Only visible to screen readers.
+#: inc/template-tags.php:58
 msgid "Leave a comment<span class=\"screen-reader-text\"> on %s</span>"
 msgstr "Deixa un comentari<span class=\"screen-reader-text\"> a %s</span>"
 
-#: inc/template-tags.php:25
+#. translators: Hidden accessibility text.
+#: inc/template-tags.php:27
 msgctxt "Used before post author name."
 msgid "Author"
 msgstr "Autor"
 
-#: functions.php:194 inc/customizer.php:293
+#: functions.php:223 inc/customizer.php:357
 msgid "Yellow"
 msgstr "Groc"
 
-#: inc/customizer.php:273
+#: inc/customizer.php:337
 msgid "Gray"
 msgstr "Gris"
 
-#: inc/customizer.php:263
+#: inc/customizer.php:327
 msgid "Dark"
 msgstr "Fosc"
 
-#: inc/customizer.php:172
-msgid "Main Text Color"
-msgstr "Color del text primary"
-
-#: inc/customizer.php:253
+#: inc/customizer.php:317
 msgid "Default"
 msgstr "Predeterminat"
 
-#: inc/customizer.php:184
+#: inc/customizer.php:242
 msgid "Secondary Text Color"
 msgstr "Color del text secundari"
 
-#: inc/customizer.php:160
+#: inc/customizer.php:221
+msgid "Main Text Color"
+msgstr "Color del text principal"
+
+#: inc/customizer.php:200
 msgid "Link Color"
 msgstr "Color dels enllaços"
 
-#: inc/customizer.php:145
+#: inc/customizer.php:176
 msgid "Page Background Color"
 msgstr "Color del fons de la pàgina"
 
-#: single.php:29 image.php:102
+#: image.php:109 single.php:31
 msgctxt "Parent post link"
 msgid "<span class=\"meta-nav\">Published in</span><span class=\"post-title\">%title</span>"
 msgstr "<span class=\"meta-nav\">Publicat en</span><span class=\"post-title\">%title</span>"
 
-#: inc/back-compat.php:41 inc/back-compat.php:53 inc/back-compat.php:68
-msgid "Twenty Sixteen requires at least WordPress version 4.4. You are running version %s. Please upgrade and try again."
-msgstr "Twenty Sixteen requereix com a mínim la versió 4.4 de WordPress. Esteu executant la versió %s. Actualitzeu i proveu de nou."
-
-#: inc/customizer.php:130
+#: inc/customizer.php:153
 msgid "Base Color Scheme"
 msgstr "Esquema de color base"
 
-#: image.php:73
+#. translators: %s: The current WordPress version.
+#: inc/back-compat.php:45 inc/back-compat.php:62 inc/back-compat.php:85
+msgid "Twenty Sixteen requires at least WordPress version 4.4. You are running version %s. Please upgrade and try again."
+msgstr "Twenty Sixteen requereix com a mínim la versió 4.4 de WordPress. Esteu executant la versió %s. Actualitzeu i proveu de nou."
+
+#. translators: Hidden accessibility text.
+#: image.php:79
 msgctxt "Used before full size attachment link."
 msgid "Full size"
 msgstr "Mida sencera"
 
-#: template-parts/content.php:33 template-parts/content-page.php:23
-#: template-parts/content-single.php:25 image.php:56
+#: image.php:58 template-parts/content-page.php:24
+#: template-parts/content-single.php:26 template-parts/content.php:36
 msgid "Pages:"
 msgstr "Pàgines:"
 
-#: image.php:25
+#: image.php:26
 msgid "Next Image"
 msgstr "Imatge següent"
 
-#: image.php:24
+#: image.php:25
 msgid "Previous Image"
 msgstr "Imatge anterior"
 
-#: header.php:47
+#: header.php:55
 msgid "Menu"
 msgstr "Menú"
 
-#: header.php:27
+#. translators: Hidden accessibility text.
+#: header.php:31
 msgid "Skip to content"
 msgstr "Vés al contingut"
 
-#: functions.php:360
+#: functions.php:441
 msgid "expand child menu"
 msgstr "amplia el menú fill"
 
-#: functions.php:361
+#: functions.php:442
 msgid "collapse child menu"
 msgstr "contrau el menú fill"
 
 #. translators: If there are characters in your language that are not supported
 #. by Inconsolata, translate this to 'off'. Do not translate into your own
 #. language.
-#: functions.php:286
+#: functions.php:356
 msgctxt "Inconsolata font: on or off"
 msgid "on"
 msgstr "activa"
 
-#: functions.php:239
-msgid "Content Bottom 1"
-msgstr "Contingut inferior 1"
-
-#: functions.php:241 functions.php:251
-msgid "Appears at the bottom of the content on posts and pages."
-msgstr "Apareix baix del contingut d'entrades i pàgines."
-
-#: functions.php:249
-msgid "Content Bottom 2"
-msgstr "Contingut inferior 2"
-
-#. translators: If there are characters in your language that are not supported
-#. by Merriweather, translate this to 'off'. Do not translate into your own
-#. language.
-#: functions.php:276
-msgctxt "Merriweather font: on or off"
-msgid "on"
-msgstr "on"
-
 #. translators: If there are characters in your language that are not supported
 #. by Montserrat, translate this to 'off'. Do not translate into your own
 #. language.
-#: functions.php:281
+#: functions.php:348
 msgctxt "Montserrat font: on or off"
 msgid "on"
 msgstr "on"
 
-#: functions.php:229
+#. translators: If there are characters in your language that are not supported
+#. by Merriweather, translate this to 'off'. Do not translate into your own
+#. language.
+#: functions.php:340
+msgctxt "Merriweather font: on or off"
+msgid "on"
+msgstr "on"
+
+#: functions.php:309
+msgid "Content Bottom 2"
+msgstr "Contingut inferior 2"
+
+#: functions.php:297
+msgid "Content Bottom 1"
+msgstr "Contingut inferior 1"
+
+#: functions.php:299 functions.php:311
+msgid "Appears at the bottom of the content on posts and pages."
+msgstr "Apareix a sota del contingut d'entrades i pàgines."
+
+#: functions.php:285
 msgid "Sidebar"
 msgstr "Barra lateral"
 
-#: functions.php:89 header.php:62
+#: functions.php:100 header.php:72
 msgid "Social Links Menu"
 msgstr "Menú d'enllaços socials"
 
-#: functions.php:88 header.php:51
+#: functions.php:99 header.php:59
 msgid "Primary Menu"
 msgstr "Menú principal"
 
-#: footer.php:57
+#. translators: %s: WordPress
+#: footer.php:63
 msgid "Proudly powered by %s"
 msgstr "Gràcies al %s"
 
-#: comments.php:69
+#: comments.php:71
 msgid "Comments are closed."
 msgstr "Els comentaris estan tancats."
 
-#. translators: 1: number of comments, 2: post title
+#. translators: 1: Number of comments, 2: Post title.
 #: comments.php:35
 msgctxt "comments title"
 msgid "%1$s thought on &ldquo;%2$s&rdquo;"
@@ -293,17 +357,18 @@ msgid_plural "%1$s thoughts on &ldquo;%2$s&rdquo;"
 msgstr[0] "Una resposta a «%2$s»"
 msgstr[1] "%1$s respostes a «%2$s»"
 
-#: archive.php:51 template-parts/content.php:37
-#: template-parts/content-page.php:27 template-parts/content-single.php:29
-#: search.php:39 index.php:48 image.php:60
+#. translators: Hidden accessibility text.
+#: archive.php:55 image.php:63 index.php:52 search.php:47
+#: template-parts/content-page.php:29 template-parts/content-single.php:31
+#: template-parts/content.php:41
 msgid "Page"
 msgstr "Pàgina"
 
-#: archive.php:50 search.php:38 index.php:47
+#: archive.php:53 index.php:50 search.php:45
 msgid "Next page"
 msgstr "Pàgina següent"
 
-#: archive.php:49 search.php:37 index.php:46
+#: archive.php:52 index.php:49 search.php:44
 msgid "Previous page"
 msgstr "Pàgina anterior"
 
@@ -315,15 +380,18 @@ msgstr "Sembla que no s'ha trobat res aquí. Voleu intentar una cerca?"
 msgid "Oops! That page can&rsquo;t be found."
 msgstr "Aquesta pàgina no es pot trobar."
 
-#. Theme URI of the theme
-msgid "https://wordpress.org/themes/twentysixteen/"
-msgstr "https://wordpress.org/themes/twentysixteen/"
-
 #. Author of the theme
+#, gp-priority: low
 msgid "the WordPress team"
 msgstr "L'equip del WordPress"
 
+#. Theme URI of the theme
+#, gp-priority: low
+msgid "https://wordpress.org/themes/twentysixteen/"
+msgstr "https://wordpress.org/themes/twentysixteen/"
+
 #. Author URI of the theme
-#: footer.php:56
+#: footer.php:60
+#, gp-priority: low
 msgid "https://wordpress.org/"
 msgstr "https://wordpress.org/"

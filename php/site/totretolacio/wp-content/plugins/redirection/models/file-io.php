@@ -29,7 +29,7 @@ abstract class Red_FileIO {
 		$extension = isset( $parts['extension'] ) ? $parts['extension'] : '';
 		$extension = strtolower( $extension );
 
-		if ( $extension === 'csv' ) {
+		if ( $extension === 'csv' || $extension === 'txt' ) {
 			include_once dirname( dirname( __FILE__ ) ) . '/fileio/csv.php';
 			$importer = new Red_Csv_File();
 			$data = '';
@@ -58,6 +58,17 @@ abstract class Red_FileIO {
 		header( 'Expires: Mon, 26 Jul 1997 05:00:00 GMT' );
 	}
 
+	protected function export_filename( $extension ) {
+		$name = wp_parse_url( home_url(), PHP_URL_HOST );
+
+		$name = sanitize_text_field( $name );
+		$name = str_replace( '.', '-', $name );
+		$date = strtolower( date_i18n( get_option( 'date_format' ) ) );
+		$date = str_replace( [ ',', ' ', '--' ], '-', $date );
+
+		return 'redirection-' . $name . '-' . $date . '.' . sanitize_text_field( $extension );
+	}
+
 	public static function export( $module_name_or_id, $format ) {
 		$groups = false;
 		$items = false;
@@ -77,16 +88,16 @@ abstract class Red_FileIO {
 
 		$exporter = self::create( $format );
 		if ( $exporter && $items !== false && $groups !== false ) {
-			return array(
+			return [
 				'data' => $exporter->get_data( $items, $groups ),
 				'total' => count( $items ),
 				'exporter' => $exporter,
-			);
+			];
 		}
 
 		return false;
 	}
 
-	abstract function get_data( array $items, array $groups );
-	abstract function load( $group, $filename, $data );
+	abstract public function get_data( array $items, array $groups );
+	abstract public function load( $group, $filename, $data );
 }
