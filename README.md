@@ -7,7 +7,7 @@ Recently, I've migrated the site from a managed server to a cloud server and dep
 
 Install some basic packages:
 ```
-sudo apt install apt-transport-https ca-certificates curl gnupg lsb-release dos2unix jq make -y
+sudo apt install apt-transport-https ca-certificates curl gnupg lsb-release dos2unix jq make git -y
 ```
 
 Add the docker repository for Debian:
@@ -33,7 +33,7 @@ sudo systemctl status docker
 sudo usermod -aG docker <user>
 ```
 
-Open some ports for docker swarm:
+Open some ports for the docker swarm:
 ```
 sudo ufw allow 2377/tcp
 sudo ufw allow 7946/tcp
@@ -41,7 +41,7 @@ sudo ufw allow 7946/udp
 sudo ufw allow 4789/udp
 ```
 
-Sync files with rsync from windows (use CMD):
+Sync files with rsync from Windows (use CMD):
 ```
 rsync -avz -e "C:\ProgramData\chocolatey\lib\rsync\tools\bin\ssh.exe" * <user>@<server_ip>:<directory>
 ```
@@ -68,7 +68,7 @@ Apply the changes to the current session:
 source ~/.bashrc
 ```
 
-Watchout for the impact in the disk space, to clear the history:
+Watch out for the impact in the disk space, to clear the history:
 ```
 history -c
 ```
@@ -100,7 +100,7 @@ Create the secrets for the Caddy service:
 echo '' | docker secret create caddy_cloudflare_api_token -
 ```
 
-Create the secrets for the Mariadb service:
+Create the secrets for the MariaDB service:
 ```
 echo '' | docker secret create mariadb_root_password -
 ```
@@ -155,7 +155,7 @@ docker exec -it <caddy_container_id> sh
 caddy reload -c /etc/caddy/Caddyfile
 ```
 
-Convert script to unix text file (in vscode, at the bottom right corner  you can change the end of line squence to LF):
+Convert script to Unix text file (in vscode, at the bottom right corner, you can change the end of line sequence to LF):
 ```
 dos2unix ./docker/utils/docker-logs
 ```
