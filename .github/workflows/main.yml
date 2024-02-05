@@ -12,9 +12,16 @@ jobs:
     steps:
     - name: executing remote ssh commands using password
       uses: appleboy/ssh-action@v1.0.3
+      env:
+        WORK_DIR: ${{ secrets.WORK_DIR }}
+        MAIN_BRANCH: ${{ secrets.MAIN_BRANCH }}
       with:
         host: ${{ secrets.SSH_HOST }}
         username: ${{ secrets.SSH_USER }}
         key: ${{ secrets.SSH_PRIVATE_KEY }}
         port: ${{ secrets.SSH_PORT }}
-        script: ls
+        envs: WORK_DIR,MAIN_BRANCH
+        script: |
+          cd $WORK_DIR
+          git checkout $MAIN_BRANCH
+          git pull
