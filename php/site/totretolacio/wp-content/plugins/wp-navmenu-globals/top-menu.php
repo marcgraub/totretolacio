@@ -57,7 +57,7 @@
     for($i=0; $i<$lenght; $i++){
 
          if($items[$i]->menu_item_parent == 0 && $pare == "false"){
-  	       	if($items[$i+1]->menu_item_parent != 0){
+  	       	if(isset($items[$i+1]) && $items[$i+1]->menu_item_parent != 0){
   	       		$output = $output."<li><a ". ($items[$i]->url == "#"?"class='noselect cursorDefault'":"href=".$items[$i]->url) .">".$items[$i]->title."</a><ul>";
   	       		$pare ="true";
   	       	}else{
