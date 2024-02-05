@@ -92,6 +92,12 @@ php-kill:
 php-logs:
 	@./docker/utils/docker-logs php
 
+## |	make mariadb-logs		show the mariadb container logs
+## |
+.PHONY: mariadb-logs
+mariadb-logs:
+	@./docker/utils/docker-logs db
+
 ## |	docker-clean		remove all the stack
 ## |
 .PHONY: docker-clean
